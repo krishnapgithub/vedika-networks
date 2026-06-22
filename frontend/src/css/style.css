@@ -1,0 +1,696 @@
+﻿/* ========================================================================== 
+   1. Global Page Reset Rules
+   ========================================================================== */
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	background: #ffffff;
+	color: #0f172a;
+	overflow-x: hidden;
+}
+
+.layout-page-container {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+/* ========================================================================== 
+   2. Navigation Header Layout (Aligned to Container Base)
+   ========================================================================== */
+.navbar {
+	width: 95vw;
+	max-width: 1400px;
+	margin: 0 auto;
+	padding: 16px 24px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-direction: row;
+	flex-wrap: nowrap;
+}
+
+.logo {
+	font-weight: 700;
+	font-size: 1.15rem;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.logo-tag {
+	background: #000000;
+	color: #e8ff3b;
+	padding: 4px 8px;
+	border-radius: 6px;
+	font-size: 0.9rem;
+	line-height: 1;
+}
+
+.nav-links {
+	display: flex;
+	gap: 24px;
+}
+
+	.nav-links a {
+		text-decoration: none;
+		color: #475569;
+		font-size: 0.85rem;
+		font-weight: 500;
+		transition: color 0.2s ease;
+	}
+
+		.nav-links a:hover {
+			color: #000000;
+		}
+
+.cta-btn {
+	text-decoration: none;
+	font-size: 0.85rem;
+	background: #e8ff3b;
+	color: #000;
+	padding: 8px 16px;
+	border-radius: 9999px;
+	font-weight: 500;
+	transition: opacity 0.2s ease;
+}
+
+	.cta-btn:hover {
+		opacity: 0.9;
+	}
+
+
+
+/* ========================================================================== 
+   3. Main Center Pod Structure
+   ========================================================================== */
+/* ========================================================================== 
+   3. Main Center Pod Structure (Restoring Side Spacing Gaps)
+   ========================================================================== */
+.content-wrapper {
+	background-color: #f1f3f5;
+	/* 🚀 CHANGE THIS: Sets the box to 90% of screen width, leaving 5% gaps on both sides */
+	width: 90% !important;
+	max-width: 1400px;
+	/* 🚀 CRITICAL: Centers the container perfectly on the page */
+	margin: 0 auto !important;
+	border-radius: 24px 24px 0 0;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	position: relative;
+}
+
+/* 2. Remove any top border-radii from the immediate inner layout containers */
+.main-container,
+.bento-grid-main-layout,
+.hero-section,
+.hero-flex-box {
+	border-top-left-radius: 0 !important;
+	border-top-right-radius: 0 !important;
+	border-radius: 0 !important; /* Forces inner structural zones to stay flat */
+}
+
+
+ /* ========================================================================== 
+   3. Main Center Pod Structure
+   ========================================================================== */
+.main-container {
+	width: 100%;
+	/* CHANGE THIS: 8px top, 24px right, 24px bottom, 24px left */
+	padding: 8px 24px 24px 24px;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+
+.hero-section {
+	/* CHANGE THIS: Pulls the section up slightly higher toward the edge */
+	margin-top: -12px;
+	margin-bottom: 4px;
+}
+
+.hero-flex-box {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.hero-title {
+	font-size: 1.6rem;
+	font-weight: 600;
+	line-height: 1.2;
+	letter-spacing: -0.02em;
+}
+
+.hero-desc {
+	color: #334155;
+	font-size: 0.82rem;
+	font-weight: 500;
+	line-height: 1.45;
+	max-width: 440px;
+}
+
+/* ========================================================================== 
+   4. Strict Outer Layout Grid (Side-by-Side Lock Blueprint)
+   ========================================================================== */
+/* ========================================================================== 
+   Bento Grid Layout Alignment Fixes
+   ========================================================================== */
+
+.bento-grid-main-layout {
+	display: grid;
+	grid-template-columns: 2fr 1fr; /* Left zone takes 2 parts, right side takes 1 */
+	gap: 20px;
+	/* 🚀 CRITICAL: Prevents the right column height from forcing the left zone to stretch */
+	align-items: start;
+}
+/* 2x2 Left Sub-Grid Area */
+.grid-left-zone {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr); /* Keeps your 2x2 horizontal layout */
+	gap: 20px;
+	/* 🚀 CRITICAL: Tells the left cards to stack neatly without forcing row-height match constraints */
+	align-items: start;
+}
+
+
+/* 1x3 Right Sub-Stack Area */
+ /* ========================================================================== 
+   Right Side Sidebar Vertical Compression Fix
+   ========================================================================== */
+ /* 1. Ensure the right-side cards act as standard block layouts that respect margins */
+
+.grid-right-zone .card {
+	display: flex !important;
+	flex-direction: column !important;
+	position: relative !important;
+	width: 100% !important;
+	height: auto !important;
+	/* 🚀 Wipes out top/side margins, sets a clean bottom margin */
+	margin-top: 0 !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	margin-bottom: 20px !important; /* 🚀 FORCES a clean 20px gap beneath each card */
+}
+
+/* 2. Remove the margin from the very last card so it doesn't add extra space at the bottom */
+.grid-right-zone .card:last-child {
+	margin-bottom: 0 !important;
+}
+
+/* 3. Keep the parent container completely clean and non-restrictive */
+.grid-right-zone {
+	display: block !important; /* 🚀 Changes to a standard block flow to let card margins work perfectly */
+	width: 100% !important;
+	height: auto !important;
+}
+/* 2. Ensure the body text container underneath retains its clean spacing padding */
+.grid-right-zone .card .card-body {
+	padding: 20px !important; /* Re-applies clean breathing room for your titles and text links */
+}
+
+
+/* ========================================================================== 
+   5. Dashboard Component Cards Styles
+   ========================================================================== */
+.card {
+	background: #ffffff;
+	padding: 16px;
+	border: 1px solid rgba(0,0,0,0.04);
+	box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	min-height: 0;
+	border-radius: 16px;
+	overflow: hidden;
+	align-self: start;
+	display: flex;
+	flex-direction: column;
+	height: auto;
+}
+
+/* Image Box Frame Aspect Scaling Fixes */
+.card-image-box {
+	width: 100%;
+	height: 145px;
+	flex-shrink: 0;
+	border-radius: 10px;
+	overflow: hidden;
+	background-color: #e2e8f0;
+}
+
+	.card-image-box img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+.card-body {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	flex: 1;
+	min-height: 0;
+	justify-content: flex-start;
+}
+
+/* Text Layout Alignment Overrides for Cards 6 & 7 */
+.text-only-card .card-body {
+	justify-content: center;
+}
+
+.card-heading {
+	font-size: 0.95rem;
+	font-weight: 600;
+}
+
+.card-sub {
+	color: #64748b;
+	font-size: 0.78rem;
+	line-height: 1.35;
+}
+
+/* ========================================================================== 
+   6. Custom Card Module Fallbacks & Widgets
+   ========================================================================== */
+.operational-bg {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #f8fafc;
+}
+
+.gear-icon {
+	font-size: 2.5rem;
+}
+
+/* 3. Make the dark marquee box stretch 100% across the card bounds */
+.ticker-box {
+	background-color: #0f172a !important;
+	width: 100% !important;
+	max-width: 100% !important;
+	margin: 0 !important;
+	padding: 14px 20px !important;
+	box-sizing: border-box !important;
+	/* Smoothly matches the card's top round shapes, keeping the bottom flat */
+	border-radius: 12px 12px 0 0 !important;
+}
+
+#ticker-fallback {
+	width: 100%;
+	font-size: 0.75rem;
+}
+
+/* ========================================================================== 
+   7. Mobile Media Queries (Natural Fallback Flow for Phones)
+   ========================================================================== */
+@media (max-width: 1024px) {
+	.bento-grid-main-layout {
+		grid-template-columns: 1fr 320px; /* Narrower right sidebar on medium tablets */
+	}
+}
+
+@media (max-width: 768px) {
+	.navbar {
+		width: 100vw;
+		padding: 16px;
+	}
+
+	.nav-links {
+		display: none; /* Hide classic tray layout links for mobile views */
+	}
+
+	.content-wrapper {
+		width: 100vw;
+		border-radius: 0;
+	}
+
+	.main-container {
+		padding: 16px;
+		gap: 16px;
+	}
+
+	.hero-flex-box {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 8px;
+	}
+
+	.hero-title {
+		font-size: 1.4rem;
+	}
+
+	/* Stacks right and left blocks into a single column string */
+	.bento-grid-main-layout {
+		display: flex;
+		flex-direction: column;
+		height: auto;
+		gap: 14px;
+	}
+
+	.grid-left-zone {
+		display: flex;
+		flex-direction: column;
+		gap: 14px;
+	}
+
+	.grid-right-zone {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		gap: 14px;
+	}
+
+	.card-image-box {
+		height: 160px;
+	}
+}
+
+/* ========================================================================== 
+   4. Political News Live Feed Layout Styles
+   ========================================================================== */
+.news-header-flex {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 12px;
+}
+
+.live-indicator {
+	color: #ef4444;
+	font-size: 0.7rem;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	animation: blink 1.5s ease-in-out infinite;
+}
+
+.news-feed-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+.news-link {
+	text-decoration: none;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	transition: transform 0.2s ease;
+}
+
+	.news-link:hover .news-text {
+		color: #000000;
+		text-decoration: underline;
+	}
+
+.news-time {
+	font-size: 0.68rem;
+	text-transform: uppercase;
+	font-weight: 700;
+	color: #64748b;
+	letter-spacing: 0.02em;
+}
+
+.news-text {
+	color: #334155;
+	font-size: 0.78rem;
+	font-weight: 500;
+	line-height: 1.35;
+	margin: 0;
+}
+
+@keyframes blink {
+	0%, 100% {
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0.3;
+	}
+}
+
+/* ========================================================================== 
+   4. LIC & Premium Itineraries Layout Styles
+   ========================================================================== */
+.lic-itinerary-card {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.card-header-flex {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 6px;
+}
+
+.lic-badge {
+	background-color: #0f172a;
+	color: #e8ff3b;
+	font-size: 0.62rem;
+	font-weight: 700;
+	padding: 3px 6px;
+	border-radius: 4px;
+	letter-spacing: 0.05em;
+}
+
+.card-sub-itinerary {
+	color: #475569;
+	font-size: 0.8rem;
+	line-height: 1.4;
+	margin-bottom: 12px;
+}
+
+.lic-policy-divider {
+	height: 1px;
+	background: #cbd5e1;
+	margin: 8px 0 12px 0;
+	opacity: 0.6;
+}
+
+.lic-section {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.lic-section-title {
+	font-size: 0.72rem;
+	text-transform: uppercase;
+	font-weight: 700;
+	color: #64748b;
+	letter-spacing: 0.02em;
+}
+
+.lic-links-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.lic-link-item {
+	text-decoration: none;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding: 8px;
+	border-radius: 8px;
+	background: #f8fafc;
+	border: 1px solid transparent;
+	transition: all 0.2s ease;
+}
+
+	.lic-link-item:hover {
+		background: #ffffff;
+		border-color: #cbd5e1;
+		transform: translateY(-1px);
+	}
+
+.policy-meta {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.policy-name {
+	font-size: 0.78rem;
+	font-weight: 600;
+	color: #0f172a;
+}
+
+.lic-link-item:hover .policy-name {
+	color: #000000;
+	text-decoration: underline;
+}
+
+.policy-tag {
+	font-size: 0.65rem;
+	font-weight: 600;
+	color: #64748b;
+	background: #e2e8f0;
+	padding: 1px 4px;
+	border-radius: 3px;
+}
+
+.policy-desc {
+	color: #475569;
+	font-size: 0.72rem;
+	line-height: 1.35;
+	margin: 0;
+}
+
+/* ========================================================================== 
+   4. Live Stock Market Dashboard Layout
+   ========================================================================== */
+.stock-market-card {
+	display: flex;
+	flex-direction: column;
+}
+
+.market-display-box {
+	background: #0f172a; /* Sleek dark theme matching your design profile */
+	padding: 18px 20px;
+	border-radius: 14px 14px 0 0;
+}
+
+.market-grid-container {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.market-metric-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.metric-identity {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.metric-symbol {
+	color: #ffffff;
+	font-weight: 700;
+	font-size: 0.88rem;
+	letter-spacing: -0.01em;
+}
+
+.metric-exchange {
+	color: #64748b;
+	font-size: 0.65rem;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+.metric-figures {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 2px;
+}
+
+.metric-price {
+	color: #ffffff;
+	font-size: 0.95rem;
+	font-weight: 700;
+	font-family: monospace; /* Keeps numerical alignments perfectly locked */
+}
+
+.metric-percent {
+	font-size: 0.72rem;
+	font-weight: 700;
+}
+
+	.metric-percent.loss {
+		color: #f87171; /* High visibility red */
+	}
+
+	.metric-percent.gain {
+		color: #4ade80; /* Clean green for positive days */
+	}
+
+.metric-divider-line {
+	height: 1px;
+	background: #334155;
+	opacity: 0.5;
+}
+
+.market-action-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 4px;
+}
+
+.market-portal-btn {
+	font-size: 0.72rem;
+	color: #475569;
+	text-decoration: none;
+	font-weight: 600;
+	padding: 2px 6px;
+	border-radius: 4px;
+	transition: all 0.2s ease;
+}
+
+	.market-portal-btn:hover {
+		color: #000000;
+		background-color: #e2e8f0;
+	}
+/* ========================================================================== 
+   Ticker Box Text Color Visibility Fix
+   ========================================================================== */
+
+/* 1. Force the marquee text strings to be bright white */
+#ticker-fallback marquee {
+	color: #ffffff !important;
+	font-size: 0.82rem;
+}
+
+	/* 2. Style the labels (NIFTY 50 / SENSEX) to stand out cleanly */
+	#ticker-fallback marquee strong {
+		color: #e2e8f0 !important; /* Premium light slate gray */
+		font-weight: 700;
+	}
+
+	/* 3. Ensure links inside the marquee (if any) stay white too */
+	#ticker-fallback marquee a {
+		color: #ffffff !important;
+		text-decoration: none;
+	}
+
+/* Endless fluid structural scroll animation map */
+@keyframes marqueeScroll {
+	0% {
+		transform: translate3d(0, 0, 0);
+	}
+
+	100% {
+		transform: translate3d(-100%, 0, 0);
+	}
+}
+
+/* Pause streaming ticker animation on mouse hover */
+.ticker-hover-pause:hover {
+	animation-play-state: paused !map;
+	cursor: pointer;
+}
