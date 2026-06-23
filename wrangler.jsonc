@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "vedika-networks-platform",
+  "name": "vedika-networks-v100",
   "main": "api/index.ts",
   "compatibility_date": "2026-06-19",
   "assets": {
