@@ -691,6 +691,6 @@ body {
 
 /* Pause streaming ticker animation on mouse hover */
 .ticker-hover-pause:hover {
-	animation-play-state: paused !map;
+	animation-play-state: paused !important;
 	cursor: pointer;
 }
