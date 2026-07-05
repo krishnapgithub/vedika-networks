@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\api",
+    "\\backend\\public",
+    "\\backend\\src",
+    "\\frontend",
+    "\\frontend\\src",
+    "\\frontend\\src\\components",
+    "\\frontend\\src\\css"
+  ],
+  "SelectedNode": "\\frontend\\src\\css\\style.css",
+  "PreviewInSolutionExplorer": false
+}
