@@ -689,11 +689,25 @@ const defaultProposalTemplate = {
     totalCost: 'Rs. 1,23,900',
     costNote: 'Per head including flight and land package.',
     hotels: 'Hanoi: La Dolce Vita, Halais, Moon View, First Eden or similar\nHalong: Hera Luxury Day Cruise\nDanang: Anfada, Palazzo, Vivian, Lavencos, Greenery or similar',
-    flights: 'VN-984: HYD to Hanoi, 5 July 23:30 - 6 July 05:25\nVJ-531: Hanoi to Danang, 9 July 06:30 - 9 July 07:50\nAK-641: Danang to Kuala Lumpur, 11 July 16:05 - 11 July 19:55\nAK-69: Kuala Lumpur to HYD, 11 July 21:25 - 11 July 23:55',
+    flights: [
+        { flightNo: 'VN-984', from: 'HYD', to: 'Hanoi', startTime: '5 July 23:30', reachTime: '6 July 05:25' },
+        { flightNo: 'VJ-531', from: 'Hanoi', to: 'Danang', startTime: '9 July 06:30', reachTime: '9 July 07:50' },
+        { flightNo: 'AK-641', from: 'Danang', to: 'Kuala Lumpur', startTime: '11 July 16:05', reachTime: '11 July 19:55' },
+        { flightNo: 'AK-69', from: 'Kuala Lumpur', to: 'HYD', startTime: '11 July 21:25', reachTime: '11 July 23:55' },
+        ...Array.from({ length: 6 }, () => ({ flightNo: '', from: '', to: '', startTime: '', reachTime: '' })),
+    ],
     inclusions: 'Accommodation on twin, double, or triple sharing basis\nMeals as mentioned in the itinerary\nEntrance fees and sightseeing as mentioned\nAir-conditioned vehicle transfers\nWater bottles during tours\nEnglish-speaking guide as mentioned\nTravel insurance',
     exclusions: 'Visa charges\nPersonal expenses\nAny service not listed under inclusions',
     terms: '30 days prior: no charge. 29-21 days: 50%. 20-15 days: 75%. Less than 15 days: 100%. All cancellations must be made in writing.',
-    itinerary: 'Day 01 | Hanoi Arrival - Half Day City Tour | No meals | Overnight in Hanoi | Airport pickup; Ba Dinh Square photo stop; Temple of Literature; Hoan Kiem Lake; Old Quarter cyclo ride; Train Street visit\nDay 02 | Hanoi - Hoa Lu - Tam Coc - Hanoi | Breakfast | Overnight in Hanoi | Ninh Binh day tour; Hoa Lu ancient capital; Tam Coc bamboo boat ride; village cycling; Mua Cave viewpoint\nDay 03 | Hanoi - Halong Bay - Hanoi | Breakfast, Lunch | Overnight in Hanoi | Hera Cruise; seafood buffet lunch; Lan Ha Bay kayaking; swimming; cooking class; sunset party\nDay 04 | Hanoi - Danang - Coconut Village - Hoi An | Breakfast | Overnight in Danang | Domestic flight; Cam Thanh Coconut Jungle; basket boat experience; Hoi An Ancient Town; Hoai River lantern ride\nDay 05 | Da Nang - Bana Hills and Golden Bridge - Danang | Breakfast, Lunch | Overnight in Danang | Ba Na Hills cable car; Linh Ung Pagoda; Golden Bridge; Fantasy Park; Han Market shopping\nDay 06 | Danang Departure | Breakfast | Departure transfer | Free time until checkout; private airport transfer',
+    itineraryDays: [
+        { title: 'Hanoi Arrival - Half Day City Tour', meals: 'No meals', stay: 'Overnight in Hanoi', details: 'Airport pickup; Ba Dinh Square photo stop; Temple of Literature; Hoan Kiem Lake; Old Quarter cyclo ride; Train Street visit' },
+        { title: 'Hanoi - Hoa Lu - Tam Coc - Hanoi', meals: 'Breakfast', stay: 'Overnight in Hanoi', details: 'Ninh Binh day tour; Hoa Lu ancient capital; Tam Coc bamboo boat ride; village cycling; Mua Cave viewpoint' },
+        { title: 'Hanoi - Halong Bay - Hanoi', meals: 'Breakfast, Lunch', stay: 'Overnight in Hanoi', details: 'Hera Cruise; seafood buffet lunch; Lan Ha Bay kayaking; swimming; cooking class; sunset party' },
+        { title: 'Hanoi - Danang - Coconut Village - Hoi An', meals: 'Breakfast', stay: 'Overnight in Danang', details: 'Domestic flight; Cam Thanh Coconut Jungle; basket boat experience; Hoi An Ancient Town; Hoai River lantern ride' },
+        { title: 'Da Nang - Bana Hills and Golden Bridge - Danang', meals: 'Breakfast, Lunch', stay: 'Overnight in Danang', details: 'Ba Na Hills cable car; Linh Ung Pagoda; Golden Bridge; Fantasy Park; Han Market shopping' },
+        { title: 'Danang Departure', meals: 'Breakfast', stay: 'Departure transfer', details: 'Free time until checkout; private airport transfer' },
+        ...Array.from({ length: 4 }, () => ({ title: '', meals: '', stay: '', details: '' })),
+    ],
 };
 
 const splitProposalLines = (value) =>
@@ -702,22 +716,37 @@ const splitProposalLines = (value) =>
         .map((item) => item.trim())
         .filter(Boolean);
 
-const parseProposalItinerary = (value) =>
-    splitProposalLines(value).map((line, index) => {
-        const [day, title, meals, stay, points] = line.split('|').map((item) => item?.trim() || '');
+const parseProposalItinerary = (days = []) =>
+    days
+        .map((item, index) => ({
+            day: `Day ${String(index + 1).padStart(2, '0')}`,
+            title: item.title?.trim() || '',
+            meals: item.meals?.trim() || 'Meals as mentioned',
+            stay: item.stay?.trim() || 'Stay as mentioned',
+            points: item.details
+                ? item.details.split(';').map((point) => point.trim()).filter(Boolean)
+                : [],
+        }))
+        .filter((item) => item.title || item.points.length > 0);
 
-        return {
-            day: day || `Day ${String(index + 1).padStart(2, '0')}`,
-            title: title || 'Tour day',
-            meals: meals || 'Meals as mentioned',
-            stay: stay || 'Stay as mentioned',
-            points: points ? points.split(';').map((point) => point.trim()).filter(Boolean) : ['Program details to be confirmed'],
-        };
-    });
+const formatFlightRows = (flights = []) =>
+    flights
+        .map((flight) => {
+            const flightNo = flight.flightNo?.trim();
+            const from = flight.from?.trim();
+            const to = flight.to?.trim();
+            const startTime = flight.startTime?.trim();
+            const reachTime = flight.reachTime?.trim();
+
+            if (!flightNo && !from && !to && !startTime && !reachTime) return '';
+
+            return `${flightNo ? `${flightNo}: ` : ''}${from || 'From'} to ${to || 'To'}${startTime || reachTime ? `, ${startTime || 'Start time'} - ${reachTime || 'Reach time'}` : ''}`;
+        })
+        .filter(Boolean);
 
 const ProposalPreview = ({ proposal }) => {
-    const itineraryDays = parseProposalItinerary(proposal.itinerary);
-    const flights = splitProposalLines(proposal.flights);
+    const itineraryDays = parseProposalItinerary(proposal.itineraryDays);
+    const flights = formatFlightRows(proposal.flights);
     const hotels = splitProposalLines(proposal.hotels);
     const inclusions = splitProposalLines(proposal.inclusions);
     const exclusions = splitProposalLines(proposal.exclusions);
@@ -845,6 +874,24 @@ const ProposalTemplateModal = ({ isOpen, onClose }) => {
         }));
     };
 
+    const handleItineraryDayChange = (index, field, value) => {
+        setProposal((currentProposal) => ({
+            ...currentProposal,
+            itineraryDays: currentProposal.itineraryDays.map((day, dayIndex) =>
+                dayIndex === index ? { ...day, [field]: value } : day
+            ),
+        }));
+    };
+
+    const handleFlightChange = (index, field, value) => {
+        setProposal((currentProposal) => ({
+            ...currentProposal,
+            flights: currentProposal.flights.map((flight, flightIndex) =>
+                flightIndex === index ? { ...flight, [field]: value } : flight
+            ),
+        }));
+    };
+
     const handleSubmit = (event) => {
         event.preventDefault();
         setShowPreview(true);
@@ -885,16 +932,85 @@ const ProposalTemplateModal = ({ isOpen, onClose }) => {
                             <label><span>Total cost</span><input name="totalCost" value={proposal.totalCost} onChange={handleChange} /></label>
                             <label className="proposal-field-wide"><span>Cost note</span><input name="costNote" value={proposal.costNote} onChange={handleChange} /></label>
                             <label className="proposal-field-wide"><span>Short proposal summary</span><textarea name="summary" value={proposal.summary} onChange={handleChange} rows="3" required /></label>
-                            <label className="proposal-field-wide"><span>Day-wise itinerary</span><textarea name="itinerary" value={proposal.itinerary} onChange={handleChange} rows="8" required /></label>
-                            <label className="proposal-field-wide"><span>Flight details</span><textarea name="flights" value={proposal.flights} onChange={handleChange} rows="4" /></label>
+
+                            <div className="proposal-field-wide proposal-repeat-section">
+                                <div className="proposal-repeat-heading">
+                                    <span>Day-wise itinerary</span>
+                                    <small>Fill up to 10 days. Empty days will not show in preview.</small>
+                                </div>
+                                <div className="proposal-day-input-list">
+                                    {proposal.itineraryDays.map((day, index) => (
+                                        <div key={`proposal-day-${index + 1}`} className="proposal-day-input-card">
+                                            <strong>Day {String(index + 1).padStart(2, '0')}</strong>
+                                            <input
+                                                value={day.title}
+                                                onChange={(event) => handleItineraryDayChange(index, 'title', event.target.value)}
+                                                placeholder="Day title / route"
+                                            />
+                                            <input
+                                                value={day.meals}
+                                                onChange={(event) => handleItineraryDayChange(index, 'meals', event.target.value)}
+                                                placeholder="Meals"
+                                            />
+                                            <input
+                                                value={day.stay}
+                                                onChange={(event) => handleItineraryDayChange(index, 'stay', event.target.value)}
+                                                placeholder="Stay / overnight"
+                                            />
+                                            <textarea
+                                                value={day.details}
+                                                onChange={(event) => handleItineraryDayChange(index, 'details', event.target.value)}
+                                                rows="2"
+                                                placeholder="Sightseeing and activity points, separated with semicolons"
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="proposal-field-wide proposal-repeat-section">
+                                <div className="proposal-repeat-heading">
+                                    <span>Flight details</span>
+                                    <small>Add up to 10 flight sectors. Empty rows will not show in preview.</small>
+                                </div>
+                                <div className="proposal-flight-input-list">
+                                    {proposal.flights.map((flight, index) => (
+                                        <div key={`proposal-flight-${index + 1}`} className="proposal-flight-input-row">
+                                            <strong>{index + 1}</strong>
+                                            <input
+                                                value={flight.flightNo}
+                                                onChange={(event) => handleFlightChange(index, 'flightNo', event.target.value)}
+                                                placeholder="Flight no."
+                                            />
+                                            <input
+                                                value={flight.from}
+                                                onChange={(event) => handleFlightChange(index, 'from', event.target.value)}
+                                                placeholder="From"
+                                            />
+                                            <input
+                                                value={flight.to}
+                                                onChange={(event) => handleFlightChange(index, 'to', event.target.value)}
+                                                placeholder="To"
+                                            />
+                                            <input
+                                                value={flight.startTime}
+                                                onChange={(event) => handleFlightChange(index, 'startTime', event.target.value)}
+                                                placeholder="Start time"
+                                            />
+                                            <input
+                                                value={flight.reachTime}
+                                                onChange={(event) => handleFlightChange(index, 'reachTime', event.target.value)}
+                                                placeholder="Reach time"
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
                             <label className="proposal-field-wide"><span>Hotel / stay references</span><textarea name="hotels" value={proposal.hotels} onChange={handleChange} rows="4" /></label>
                             <label className="proposal-field-wide"><span>Inclusions</span><textarea name="inclusions" value={proposal.inclusions} onChange={handleChange} rows="5" /></label>
                             <label className="proposal-field-wide"><span>Exclusions</span><textarea name="exclusions" value={proposal.exclusions} onChange={handleChange} rows="4" /></label>
                             <label className="proposal-field-wide"><span>Cancellation / terms</span><textarea name="terms" value={proposal.terms} onChange={handleChange} rows="4" /></label>
-                        </div>
-
-                        <div className="proposal-template-help">
-                            Itinerary format: Day | Title | Meals | Stay | Point one; Point two; Point three
                         </div>
 
                         <div className="travel-form-actions">

@@ -697,6 +697,91 @@ body {
 	font-weight: 800;
 }
 
+.proposal-repeat-section {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 14px;
+	border: 1px solid #e2e8f0;
+	border-radius: 10px;
+	background: #ffffff;
+}
+
+.proposal-repeat-heading {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 12px;
+}
+
+.proposal-repeat-heading span {
+	color: #475569;
+	font-size: 0.72rem;
+	font-weight: 900;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+}
+
+.proposal-repeat-heading small {
+	color: #64748b;
+	font-size: 0.72rem;
+	font-weight: 700;
+	text-align: right;
+}
+
+.proposal-day-input-list {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 10px;
+}
+
+.proposal-day-input-card {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 8px;
+	padding: 10px;
+	border: 1px solid #e2e8f0;
+	border-radius: 8px;
+	background: #f8fafc;
+}
+
+.proposal-day-input-card strong {
+	grid-column: 1 / -1;
+	color: #0f172a;
+	font-size: 0.78rem;
+	font-weight: 900;
+}
+
+.proposal-day-input-card textarea {
+	grid-column: 1 / -1;
+	min-height: 68px;
+}
+
+.proposal-flight-input-list {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.proposal-flight-input-row {
+	display: grid;
+	grid-template-columns: 28px 0.8fr repeat(4, minmax(0, 1fr));
+	gap: 8px;
+	align-items: center;
+}
+
+.proposal-flight-input-row strong {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 34px;
+	border-radius: 8px;
+	background: #e2e8f0;
+	color: #0f172a;
+	font-size: 0.72rem;
+	font-weight: 900;
+}
+
 .proposal-hero {
 	display: grid;
 	grid-template-columns: minmax(280px, 0.92fr) minmax(320px, 1.08fr);
@@ -1050,6 +1135,26 @@ body {
 	.proposal-two-column,
 	.proposal-builder-grid {
 		grid-template-columns: 1fr;
+	}
+
+	.proposal-repeat-heading {
+		align-items: flex-start;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	.proposal-repeat-heading small {
+		text-align: left;
+	}
+
+	.proposal-day-input-list,
+	.proposal-day-input-card,
+	.proposal-flight-input-row {
+		grid-template-columns: 1fr;
+	}
+
+	.proposal-flight-input-row strong {
+		width: 34px;
 	}
 
 	.proposal-hero-media {
