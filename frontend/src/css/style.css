@@ -280,6 +280,714 @@ body {
 	line-height: 1.35;
 }
 
+.travel-card-action {
+	align-self: flex-start;
+	margin-top: 10px;
+	border: 0;
+	background: #0f172a;
+	color: #ffffff;
+	font-size: 0.75rem;
+	font-weight: 700;
+	padding: 8px 12px;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.travel-card-action:hover {
+	background: #1e293b;
+	transform: translateY(-1px);
+}
+
+.travel-card-action-secondary {
+	margin-left: 8px;
+	background: #e8ff3b;
+	color: #0f172a;
+}
+
+.travel-card-action-secondary:hover {
+	background: #d7ee2f;
+}
+
+.travel-modal-shell {
+	position: fixed;
+	inset: 0;
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 24px;
+	background: rgba(15, 23, 42, 0.62);
+}
+
+.travel-modal-panel {
+	width: min(1080px, 100%);
+	max-height: min(92vh, 920px);
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	background: #ffffff;
+	border-radius: 14px;
+	box-shadow: 0 24px 80px rgba(15, 23, 42, 0.28);
+}
+
+.travel-modal-header {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 22px 24px 16px;
+	border-bottom: 1px solid #e2e8f0;
+}
+
+.travel-modal-kicker {
+	display: block;
+	margin-bottom: 4px;
+	color: #64748b;
+	font-size: 0.72rem;
+	font-weight: 800;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+}
+
+.travel-modal-header h2 {
+	margin: 0;
+	color: #0f172a;
+	font-size: 1.35rem;
+	font-weight: 700;
+	line-height: 1.15;
+}
+
+.travel-icon-button {
+	width: 34px;
+	height: 34px;
+	flex: 0 0 auto;
+	border: 1px solid #cbd5e1;
+	background: #ffffff;
+	color: #0f172a;
+	border-radius: 8px;
+	cursor: pointer;
+	font-weight: 800;
+}
+
+.travel-modal-content {
+	display: grid;
+	grid-template-columns: minmax(320px, 0.9fr) minmax(360px, 1.1fr);
+	gap: 0;
+	min-height: 0;
+	overflow: auto;
+}
+
+.travel-plan-form {
+	padding: 22px 24px 24px;
+	border-right: 1px solid #e2e8f0;
+	background: #f8fafc;
+}
+
+.travel-form-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 12px;
+}
+
+.travel-field {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	min-width: 0;
+}
+
+.travel-field-wide {
+	grid-column: 1 / -1;
+}
+
+.travel-field span {
+	color: #475569;
+	font-size: 0.72rem;
+	font-weight: 800;
+}
+
+.travel-field input,
+.travel-field select,
+.travel-field textarea {
+	width: 100%;
+	border: 1px solid #cbd5e1;
+	background: #ffffff;
+	color: #0f172a;
+	border-radius: 8px;
+	padding: 9px 10px;
+	font: inherit;
+	font-size: 0.82rem;
+	outline: none;
+}
+
+.travel-field textarea {
+	resize: vertical;
+	min-height: 84px;
+}
+
+.travel-field input:focus,
+.travel-field select:focus,
+.travel-field textarea:focus {
+	border-color: #2563eb;
+	box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.travel-form-actions {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-top: 16px;
+}
+
+.travel-primary-button,
+.travel-secondary-button {
+	border: 0;
+	border-radius: 8px;
+	padding: 9px 12px;
+	font-size: 0.78rem;
+	font-weight: 800;
+	cursor: pointer;
+}
+
+.travel-primary-button {
+	background: #0f172a;
+	color: #ffffff;
+}
+
+.travel-secondary-button {
+	background: #e2e8f0;
+	color: #0f172a;
+}
+
+.travel-reference-link {
+	color: #2563eb;
+	font-size: 0.76rem;
+	font-weight: 800;
+	text-decoration: none;
+}
+
+.travel-reference-link:hover {
+	text-decoration: underline;
+}
+
+.travel-preview {
+	padding: 22px 24px 24px;
+	background: #ffffff;
+}
+
+.travel-preview-toolbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	margin-bottom: 14px;
+	color: #16a34a;
+	font-size: 0.78rem;
+	font-weight: 800;
+}
+
+.travel-print-sheet {
+	border: 1px solid #dbe4ef;
+	border-radius: 10px;
+	overflow: hidden;
+	background: #ffffff;
+}
+
+.travel-print-header {
+	display: flex;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 24px;
+	color: #ffffff;
+	background: #0f172a;
+}
+
+.travel-print-brand {
+	display: block;
+	margin-bottom: 8px;
+	color: #e8ff3b;
+	font-size: 0.72rem;
+	font-weight: 800;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+}
+
+.travel-print-header h2 {
+	margin: 0 0 6px;
+	color: #ffffff;
+	font-size: 1.45rem;
+	font-weight: 800;
+	line-height: 1.15;
+}
+
+.travel-print-header p {
+	color: #cbd5e1;
+	font-size: 0.82rem;
+}
+
+.travel-print-summary {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	justify-content: center;
+	gap: 6px;
+	font-size: 0.78rem;
+	font-weight: 800;
+	text-align: right;
+}
+
+.travel-summary-grid {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	gap: 1px;
+	background: #e2e8f0;
+	border-bottom: 1px solid #e2e8f0;
+}
+
+.travel-summary-grid div {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	min-width: 0;
+	padding: 12px;
+	background: #f8fafc;
+}
+
+.travel-summary-grid span {
+	color: #64748b;
+	font-size: 0.68rem;
+	font-weight: 800;
+	text-transform: uppercase;
+}
+
+.travel-summary-grid strong {
+	color: #0f172a;
+	font-size: 0.8rem;
+	line-height: 1.25;
+	overflow-wrap: anywhere;
+}
+
+.travel-itinerary-list,
+.travel-notes-box {
+	padding: 18px 24px;
+}
+
+.travel-itinerary-list h3,
+.travel-notes-box h3 {
+	margin: 0 0 12px;
+	color: #0f172a;
+	font-size: 0.95rem;
+	font-weight: 800;
+}
+
+.travel-itinerary-item {
+	display: grid;
+	grid-template-columns: 74px 1fr;
+	gap: 12px;
+	padding: 12px 0;
+	border-top: 1px solid #e2e8f0;
+}
+
+.travel-itinerary-item span {
+	color: #2563eb;
+	font-size: 0.72rem;
+	font-weight: 900;
+}
+
+.travel-itinerary-item strong {
+	display: block;
+	margin-bottom: 4px;
+	color: #0f172a;
+	font-size: 0.84rem;
+}
+
+.travel-itinerary-item p,
+.travel-notes-box p {
+	color: #475569;
+	font-size: 0.78rem;
+	line-height: 1.45;
+}
+
+.travel-notes-box {
+	border-top: 1px solid #e2e8f0;
+	background: #f8fafc;
+}
+
+.proposal-modal-panel {
+	width: min(1160px, 100%);
+}
+
+.proposal-header-actions {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.proposal-screen {
+	overflow: auto;
+	padding: 24px;
+	background: #f8fafc;
+}
+
+.proposal-builder-form {
+	overflow: auto;
+	padding: 22px 24px 24px;
+	background: #f8fafc;
+}
+
+.proposal-builder-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 12px;
+}
+
+.proposal-builder-grid label {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	min-width: 0;
+}
+
+.proposal-builder-grid span {
+	color: #475569;
+	font-size: 0.72rem;
+	font-weight: 900;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+}
+
+.proposal-builder-grid input,
+.proposal-builder-grid textarea {
+	width: 100%;
+	border: 1px solid #cbd5e1;
+	background: #ffffff;
+	color: #0f172a;
+	border-radius: 8px;
+	padding: 9px 10px;
+	font: inherit;
+	font-size: 0.82rem;
+	outline: none;
+}
+
+.proposal-builder-grid textarea {
+	resize: vertical;
+	min-height: 86px;
+	line-height: 1.45;
+}
+
+.proposal-builder-grid input:focus,
+.proposal-builder-grid textarea:focus {
+	border-color: #2563eb;
+	box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.proposal-field-wide {
+	grid-column: 1 / -1;
+}
+
+.proposal-template-help {
+	margin-top: 12px;
+	padding: 10px 12px;
+	border-radius: 8px;
+	background: #eff6ff;
+	color: #1e3a8a;
+	font-size: 0.76rem;
+	font-weight: 800;
+}
+
+.proposal-repeat-section {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 14px;
+	border: 1px solid #e2e8f0;
+	border-radius: 10px;
+	background: #ffffff;
+}
+
+.proposal-repeat-heading {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 12px;
+}
+
+.proposal-repeat-heading span {
+	color: #475569;
+	font-size: 0.72rem;
+	font-weight: 900;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+}
+
+.proposal-repeat-heading small {
+	color: #64748b;
+	font-size: 0.72rem;
+	font-weight: 700;
+	text-align: right;
+}
+
+.proposal-day-input-list {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 10px;
+}
+
+.proposal-day-input-card {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 8px;
+	padding: 10px;
+	border: 1px solid #e2e8f0;
+	border-radius: 8px;
+	background: #f8fafc;
+}
+
+.proposal-day-input-card strong {
+	grid-column: 1 / -1;
+	color: #0f172a;
+	font-size: 0.78rem;
+	font-weight: 900;
+}
+
+.proposal-day-input-card textarea {
+	grid-column: 1 / -1;
+	min-height: 68px;
+}
+
+.proposal-flight-input-list {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.proposal-flight-input-row {
+	display: grid;
+	grid-template-columns: 28px 0.8fr repeat(4, minmax(0, 1fr));
+	gap: 8px;
+	align-items: center;
+}
+
+.proposal-flight-input-row strong {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 34px;
+	border-radius: 8px;
+	background: #e2e8f0;
+	color: #0f172a;
+	font-size: 0.72rem;
+	font-weight: 900;
+}
+
+.proposal-hero {
+	display: grid;
+	grid-template-columns: minmax(280px, 0.92fr) minmax(320px, 1.08fr);
+	gap: 0;
+	border: 0;
+	border-radius: 14px;
+	box-shadow: 0 14px 44px rgba(15, 23, 42, 0.12);
+}
+
+.proposal-hero-media {
+	min-height: 320px;
+	background: #0f172a;
+}
+
+.proposal-hero-media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.proposal-hero-copy {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 14px;
+	padding: 36px;
+	background: #0f172a;
+	color: #ffffff;
+}
+
+.proposal-brand {
+	color: #e8ff3b;
+	font-size: 0.75rem;
+	font-weight: 900;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+}
+
+.proposal-hero-copy h1 {
+	margin: 0;
+	color: #ffffff;
+	font-size: clamp(2rem, 4vw, 4rem);
+	font-weight: 850;
+	line-height: 0.98;
+	letter-spacing: 0;
+}
+
+.proposal-hero-copy p {
+	color: #cbd5e1;
+	font-size: 0.95rem;
+	line-height: 1.55;
+	max-width: 560px;
+}
+
+.proposal-quick-facts {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-top: 6px;
+}
+
+.proposal-quick-facts span {
+	border: 1px solid rgba(232, 255, 59, 0.4);
+	border-radius: 999px;
+	padding: 7px 10px;
+	color: #f8fafc;
+	font-size: 0.74rem;
+	font-weight: 800;
+}
+
+.proposal-section {
+	margin-top: 18px;
+	padding: 22px;
+	border: 1px solid #e2e8f0;
+	border-radius: 12px;
+	background: #ffffff;
+}
+
+.proposal-section-heading {
+	margin-bottom: 16px;
+}
+
+.proposal-section-heading span,
+.proposal-label {
+	display: block;
+	color: #64748b;
+	font-size: 0.72rem;
+	font-weight: 900;
+	text-transform: uppercase;
+	letter-spacing: 0.07em;
+}
+
+.proposal-section-heading h2 {
+	margin: 4px 0 0;
+	color: #0f172a;
+	font-size: 1.2rem;
+	font-weight: 850;
+}
+
+.proposal-cost-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 12px;
+}
+
+.proposal-cost-grid div {
+	padding: 18px;
+	border-radius: 10px;
+	background: #f8fafc;
+	border: 1px solid #e2e8f0;
+}
+
+.proposal-cost-grid strong {
+	display: block;
+	margin: 8px 0 4px;
+	color: #0f172a;
+	font-size: 1.45rem;
+	font-weight: 900;
+}
+
+.proposal-cost-grid p,
+.proposal-terms-box p {
+	color: #475569;
+	font-size: 0.8rem;
+	line-height: 1.45;
+}
+
+.proposal-day-list {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.proposal-day-card {
+	display: grid;
+	grid-template-columns: 108px 1fr;
+	gap: 16px;
+	padding: 16px;
+	border-radius: 10px;
+	border: 1px solid #e2e8f0;
+	background: #ffffff;
+}
+
+.proposal-day-meta {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.proposal-day-meta span {
+	color: #0f172a;
+	font-size: 0.86rem;
+	font-weight: 900;
+}
+
+.proposal-day-meta small {
+	color: #2563eb;
+	font-size: 0.72rem;
+	font-weight: 800;
+}
+
+.proposal-day-card h3 {
+	margin: 0 0 8px;
+	color: #0f172a;
+	font-size: 1rem;
+	font-weight: 850;
+}
+
+.proposal-day-card ul,
+.proposal-info-list {
+	margin: 0;
+	padding-left: 18px;
+	color: #334155;
+	font-size: 0.82rem;
+	line-height: 1.55;
+}
+
+.proposal-day-card p {
+	margin-top: 8px;
+	color: #64748b;
+	font-size: 0.78rem;
+	font-weight: 800;
+}
+
+.proposal-two-column {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 22px;
+}
+
+.proposal-terms-box {
+	margin-top: 14px;
+	padding: 14px;
+	border-radius: 10px;
+	background: #fff7ed;
+	border: 1px solid #fed7aa;
+}
+
+.proposal-terms-box strong {
+	display: block;
+	margin-bottom: 6px;
+	color: #9a3412;
+	font-size: 0.84rem;
+}
+
 /* ========================================================================== 
    6. Custom Card Module Fallbacks & Widgets
    ========================================================================== */
@@ -302,6 +1010,7 @@ body {
 	margin: 0 !important;
 	padding: 14px 20px !important;
 	box-sizing: border-box !important;
+	height: 172px !important;
 	/* Smoothly matches the card's top round shapes, keeping the bottom flat */
 	border-radius: 12px 12px 0 0 !important;
 }
@@ -374,6 +1083,188 @@ body {
 	.card-image-box {
 		height: 160px;
 	}
+
+	.travel-modal-shell {
+		align-items: stretch;
+		padding: 0;
+	}
+
+	.travel-modal-panel {
+		max-height: none;
+		min-height: 100vh;
+		border-radius: 0;
+	}
+
+	.travel-modal-content {
+		grid-template-columns: 1fr;
+	}
+
+	.travel-plan-form {
+		border-right: 0;
+		border-bottom: 1px solid #e2e8f0;
+	}
+
+	.travel-form-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.travel-summary-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.travel-print-header {
+		flex-direction: column;
+	}
+
+	.travel-print-summary {
+		align-items: flex-start;
+		text-align: left;
+	}
+
+	.proposal-header-actions {
+		align-items: flex-end;
+		flex-direction: column-reverse;
+	}
+
+	.proposal-screen {
+		padding: 14px;
+	}
+
+	.proposal-hero,
+	.proposal-cost-grid,
+	.proposal-two-column,
+	.proposal-builder-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.proposal-repeat-heading {
+		align-items: flex-start;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	.proposal-repeat-heading small {
+		text-align: left;
+	}
+
+	.proposal-day-input-list,
+	.proposal-day-input-card,
+	.proposal-flight-input-row {
+		grid-template-columns: 1fr;
+	}
+
+	.proposal-flight-input-row strong {
+		width: 34px;
+	}
+
+	.proposal-hero-media {
+		min-height: 220px;
+	}
+
+	.proposal-hero-copy {
+		padding: 24px;
+	}
+
+	.proposal-day-card {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media print {
+	@page {
+		size: A4;
+		margin: 12mm;
+	}
+
+	body {
+		background: #ffffff !important;
+	}
+
+	body * {
+		visibility: hidden !important;
+	}
+
+	.travel-print-sheet,
+	.travel-print-sheet * {
+		visibility: visible !important;
+	}
+
+	.proposal-screen,
+	.proposal-screen * {
+		visibility: visible !important;
+	}
+
+	.travel-print-sheet {
+		position: absolute !important;
+		inset: 0 auto auto 0 !important;
+		width: 100% !important;
+		border: 0 !important;
+		border-radius: 0 !important;
+		box-shadow: none !important;
+		overflow: visible !important;
+	}
+
+	.no-print {
+		display: none !important;
+	}
+
+	.travel-modal-shell,
+	.travel-modal-panel,
+	.travel-modal-content,
+	.travel-preview,
+	.proposal-screen {
+		display: block !important;
+		position: static !important;
+		inset: auto !important;
+		width: auto !important;
+		max-height: none !important;
+		padding: 0 !important;
+		margin: 0 !important;
+		background: #ffffff !important;
+		box-shadow: none !important;
+		overflow: visible !important;
+	}
+
+	.proposal-screen {
+		position: absolute !important;
+		inset: 0 auto auto 0 !important;
+		width: 100% !important;
+	}
+
+	.travel-print-header {
+		background: #0f172a !important;
+		color: #ffffff !important;
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+	}
+
+	.travel-summary-grid {
+		grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+	}
+
+	.proposal-hero,
+	.proposal-section {
+		break-inside: avoid;
+		box-shadow: none !important;
+	}
+
+	.proposal-hero {
+		grid-template-columns: 0.9fr 1.1fr !important;
+	}
+
+	.proposal-cost-grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+	}
+
+	.proposal-two-column {
+		grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+	}
+
+	.proposal-hero-copy,
+	.proposal-hero-media {
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+	}
 }
 
 /* ========================================================================== 
@@ -384,6 +1275,14 @@ body {
 	justify-content: space-between;
 	align-items: center;
 	margin-bottom: 12px;
+}
+
+.news-source-line {
+	display: block;
+	margin-top: 3px;
+	color: #64748b;
+	font-size: 0.68rem;
+	font-weight: 600;
 }
 
 .live-indicator {
@@ -526,13 +1425,16 @@ body {
 .policy-meta {
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
+	align-items: flex-start;
+	gap: 8px;
 }
 
 .policy-name {
 	font-size: 0.78rem;
 	font-weight: 600;
 	color: #0f172a;
+	line-height: 1.3;
+	min-width: 0;
 }
 
 .lic-link-item:hover .policy-name {
@@ -547,6 +1449,7 @@ body {
 	background: #e2e8f0;
 	padding: 1px 4px;
 	border-radius: 3px;
+	flex: 0 0 auto;
 }
 
 .policy-desc {
@@ -592,7 +1495,7 @@ body {
 	color: #ffffff;
 	font-weight: 700;
 	font-size: 0.88rem;
-	letter-spacing: -0.01em;
+	letter-spacing: 0;
 }
 
 .metric-exchange {
@@ -629,6 +1532,10 @@ body {
 		color: #4ade80; /* Clean green for positive days */
 	}
 
+	.metric-percent.flat {
+		color: #cbd5e1;
+	}
+
 .metric-divider-line {
 	height: 1px;
 	background: #334155;
@@ -652,10 +1559,37 @@ body {
 	transition: all 0.2s ease;
 }
 
-	.market-portal-btn:hover {
+.market-portal-btn:hover {
 		color: #000000;
 		background-color: #e2e8f0;
 	}
+
+.market-news-strip {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	padding: 10px 12px;
+	border: 1px solid #e2e8f0;
+	border-radius: 8px;
+	background: #ffffff;
+}
+
+.market-news-link {
+	color: #334155;
+	font-size: 0.72rem;
+	font-weight: 600;
+	line-height: 1.3;
+	text-decoration: none;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.market-news-link:hover {
+	color: #000000;
+	text-decoration: underline;
+}
 /* ========================================================================== 
    Ticker Box Text Color Visibility Fix
    ========================================================================== */
