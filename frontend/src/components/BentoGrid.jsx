@@ -1107,13 +1107,6 @@ export default function BentoGrid() {
                                     </p>
                                     <button
                                         type="button"
-                                        className="travel-card-action"
-                                        onClick={() => setIsTravelPlannerOpen(true)}
-                                    >
-                                        Create Travel Plan
-                                    </button>
-                                    <button
-                                        type="button"
                                         className="travel-card-action travel-card-action-secondary"
                                         onClick={() => setIsProposalTemplateOpen(true)}
                                     >
