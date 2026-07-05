@@ -755,7 +755,11 @@ const ProposalPreview = ({ proposal }) => {
         <div className="proposal-screen">
             <section className="proposal-hero">
                 <div className="proposal-hero-media">
-                    <img src="travel.png" alt={`${proposal.destination} travel proposal`} />
+                    <img src="vedika-india-banner.png" alt="Indian destinations banner for Vedika Travels & Tours" />
+                    <div className="proposal-hero-logo" aria-label="Vedika Travels & Tours">
+                        <strong>Vedika</strong>
+                        <span>Travels &amp; Tours</span>
+                    </div>
                 </div>
                 <div className="proposal-hero-copy">
                     <span className="proposal-brand">{proposal.brand}</span>
@@ -900,7 +904,7 @@ const ProposalTemplateModal = ({ isOpen, onClose }) => {
     return (
         <div className="travel-modal-shell" role="dialog" aria-modal="true" aria-labelledby="proposal-template-title">
             <div className="travel-modal-panel proposal-modal-panel">
-                <div className="travel-modal-header no-print">
+                <div className={`travel-modal-header no-print${showPreview ? ' proposal-preview-header' : ''}`}>
                     <div>
                         <span className="travel-modal-kicker">Travel Proposal Template</span>
                         <h2 id="proposal-template-title">{showPreview ? 'Final Proposal Preview' : 'Create Travel Proposal'}</h2>

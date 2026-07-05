@@ -625,6 +625,42 @@ body {
 	gap: 10px;
 }
 
+.proposal-preview-header {
+	min-height: 112px;
+	align-items: center;
+	padding: 20px 30px 18px;
+}
+
+.proposal-preview-header .travel-modal-kicker {
+	margin-bottom: 8px;
+	font-size: 0.8rem;
+	letter-spacing: 0.06em;
+}
+
+.proposal-preview-header h2 {
+	font-size: 1.9rem;
+	line-height: 1.08;
+}
+
+.proposal-preview-header .proposal-header-actions {
+	gap: 14px;
+}
+
+.proposal-preview-header .travel-primary-button,
+.proposal-preview-header .travel-secondary-button {
+	min-height: 52px;
+	padding: 14px 18px;
+	font-size: 1rem;
+	border-radius: 10px;
+}
+
+.proposal-preview-header .travel-icon-button {
+	width: 50px;
+	height: 50px;
+	font-size: 1rem;
+	border-radius: 10px;
+}
+
 .proposal-screen {
 	overflow: auto;
 	padding: 24px;
@@ -784,38 +820,84 @@ body {
 
 .proposal-hero {
 	display: grid;
-	grid-template-columns: minmax(280px, 0.92fr) minmax(320px, 1.08fr);
+	grid-template-columns: minmax(360px, 0.92fr) minmax(360px, 1.08fr);
 	gap: 0;
 	border: 0;
 	border-radius: 14px;
-	box-shadow: 0 14px 44px rgba(15, 23, 42, 0.12);
+	overflow: hidden;
+	background: #dff4ff;
+	box-shadow: 0 16px 46px rgba(15, 23, 42, 0.14);
 }
 
 .proposal-hero-media {
-	min-height: 320px;
-	background: #0f172a;
+	position: relative;
+	height: 190px;
+	min-height: 190px;
+	overflow: hidden;
+	background: #f8fafc;
 }
 
 .proposal-hero-media img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+	object-position: 50% 42%;
 	display: block;
+}
+
+.proposal-hero-media::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background:
+		linear-gradient(90deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.42) 38%, rgba(255, 255, 255, 0.08) 74%),
+		linear-gradient(180deg, rgba(15, 23, 42, 0.08), rgba(15, 23, 42, 0.16));
+	pointer-events: none;
+}
+
+.proposal-hero-logo {
+	position: absolute;
+	left: 28px;
+	top: 50%;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	transform: translateY(-50%);
+	color: #0f172a;
+	text-shadow: 0 2px 18px rgba(255, 255, 255, 0.72);
+}
+
+.proposal-hero-logo strong {
+	font-family: Georgia, "Times New Roman", serif;
+	font-size: clamp(2.1rem, 4.4vw, 4.2rem);
+	font-weight: 700;
+	font-style: italic;
+	line-height: 0.84;
+}
+
+.proposal-hero-logo span {
+	color: #7c3f16;
+	font-family: Georgia, "Times New Roman", serif;
+	font-size: clamp(1.1rem, 2vw, 2rem);
+	font-weight: 700;
+	line-height: 1;
 }
 
 .proposal-hero-copy {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	gap: 14px;
-	padding: 36px;
-	background: #0f172a;
-	color: #ffffff;
+	gap: 9px;
+	padding: 24px 30px;
+	background: linear-gradient(135deg, #eaf8ff 0%, #cfeeff 54%, #f8fcff 100%);
+	color: #0f2742;
+	border-left: 1px solid rgba(14, 116, 144, 0.14);
 }
 
 .proposal-brand {
-	color: #e8ff3b;
-	font-size: 0.75rem;
+	color: #0369a1;
+	font-size: 0.7rem;
 	font-weight: 900;
 	text-transform: uppercase;
 	letter-spacing: 0.08em;
@@ -823,17 +905,17 @@ body {
 
 .proposal-hero-copy h1 {
 	margin: 0;
-	color: #ffffff;
-	font-size: clamp(2rem, 4vw, 4rem);
+	color: #0f172a;
+	font-size: clamp(1.65rem, 2.6vw, 2.6rem);
 	font-weight: 850;
-	line-height: 0.98;
+	line-height: 1.02;
 	letter-spacing: 0;
 }
 
 .proposal-hero-copy p {
-	color: #cbd5e1;
-	font-size: 0.95rem;
-	line-height: 1.55;
+	color: #244761;
+	font-size: 0.82rem;
+	line-height: 1.45;
 	max-width: 560px;
 }
 
@@ -841,16 +923,18 @@ body {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 8px;
-	margin-top: 6px;
+	margin-top: 4px;
 }
 
 .proposal-quick-facts span {
-	border: 1px solid rgba(232, 255, 59, 0.4);
+	border: 1px solid rgba(14, 116, 144, 0.22);
 	border-radius: 999px;
-	padding: 7px 10px;
-	color: #f8fafc;
-	font-size: 0.74rem;
+	padding: 6px 10px;
+	background: rgba(255, 255, 255, 0.72);
+	color: #12324a;
+	font-size: 0.7rem;
 	font-weight: 800;
+	box-shadow: 0 5px 16px rgba(14, 116, 144, 0.08);
 }
 
 .proposal-section {
@@ -1158,11 +1242,16 @@ body {
 	}
 
 	.proposal-hero-media {
-		min-height: 220px;
+		height: 160px;
+		min-height: 160px;
 	}
 
 	.proposal-hero-copy {
-		padding: 24px;
+		padding: 18px;
+	}
+
+	.proposal-hero-logo {
+		left: 18px;
 	}
 
 	.proposal-day-card {
