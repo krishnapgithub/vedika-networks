@@ -716,6 +716,26 @@ const createDefaultProposalTemplate = () => ({
     itineraryDays: defaultProposalTemplate.itineraryDays.map((day) => ({ ...day })),
 });
 
+const createBlankProposalTemplate = () => ({
+    brand: 'Vedika Networks Travel Desk',
+    destination: '',
+    packageTitle: '',
+    duration: '',
+    groupSize: '',
+    packageType: '',
+    summary: '',
+    flightCost: '',
+    landCost: '',
+    totalCost: '',
+    costNote: '',
+    hotels: '',
+    flights: Array.from({ length: 10 }, () => ({ flightNo: '', from: '', to: '', startTime: '', reachTime: '' })),
+    inclusions: '',
+    exclusions: '',
+    terms: '',
+    itineraryDays: Array.from({ length: 10 }, () => ({ title: '', meals: '', stay: '', details: '' })),
+});
+
 const splitProposalLines = (value) =>
     value
         .split('\n')
@@ -908,7 +928,8 @@ const ProposalTemplateModal = ({ isOpen, onClose }) => {
     };
 
     const handleResetProposal = () => {
-        setProposal(createDefaultProposalTemplate());
+        setProposal(createBlankProposalTemplate());
+        setShowPreview(false);
     };
 
     return (
@@ -920,10 +941,15 @@ const ProposalTemplateModal = ({ isOpen, onClose }) => {
                         <h2 id="proposal-template-title">{showPreview ? 'Final Proposal Preview' : 'Create Travel Proposal'}</h2>
                     </div>
                     <div className="proposal-header-actions">
-                        {showPreview && (
+                        {showPreview ? (
                             <>
                                 <button type="button" className="travel-secondary-button" onClick={() => setShowPreview(false)}>Edit</button>
                                 <button type="button" className="travel-primary-button" onClick={() => window.print()}>Print / Save PDF</button>
+                            </>
+                        ) : (
+                            <>
+                                <button type="submit" form="proposal-builder-form" className="travel-primary-button">Final Preview</button>
+                                <button type="button" className="travel-secondary-button" onClick={handleResetProposal}>Reset</button>
                             </>
                         )}
                         <button type="button" className="travel-icon-button" onClick={onClose} aria-label="Close proposal template">X</button>
@@ -933,12 +959,7 @@ const ProposalTemplateModal = ({ isOpen, onClose }) => {
                 {showPreview ? (
                     <ProposalPreview proposal={proposal} />
                 ) : (
-                    <form className="proposal-builder-form no-print" onSubmit={handleSubmit}>
-                        <div className="travel-form-actions proposal-form-actions-top">
-                            <button type="submit" className="travel-primary-button">Final Preview</button>
-                            <button type="button" className="travel-secondary-button" onClick={handleResetProposal}>Reset Sample</button>
-                        </div>
-
+                    <form id="proposal-builder-form" className="proposal-builder-form no-print" onSubmit={handleSubmit}>
                         <div className="proposal-builder-grid">
                             <label><span>Brand / company</span><input name="brand" value={proposal.brand} onChange={handleChange} required /></label>
                             <label><span>Country / place</span><input name="destination" value={proposal.destination} onChange={handleChange} required /></label>
@@ -1032,10 +1053,6 @@ const ProposalTemplateModal = ({ isOpen, onClose }) => {
                             <label className="proposal-field-wide"><span>Cancellation / terms</span><textarea name="terms" value={proposal.terms} onChange={handleChange} rows="4" /></label>
                         </div>
 
-                        <div className="travel-form-actions">
-                            <button type="submit" className="travel-primary-button">Final Preview</button>
-                            <button type="button" className="travel-secondary-button" onClick={handleResetProposal}>Reset Sample</button>
-                        </div>
                     </form>
                 )}
             </div>
