@@ -932,6 +932,12 @@ const ProposalTemplateModal = ({ isOpen, onClose }) => {
         setShowPreview(false);
     };
 
+    const handleEditProposal = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        setShowPreview(false);
+    };
+
     return (
         <div className="travel-modal-shell" role="dialog" aria-modal="true" aria-labelledby="proposal-template-title">
             <div className="travel-modal-panel proposal-modal-panel">
@@ -943,7 +949,7 @@ const ProposalTemplateModal = ({ isOpen, onClose }) => {
                     <div className="proposal-header-actions">
                         {showPreview ? (
                             <>
-                                <button type="button" className="travel-secondary-button" onClick={() => setShowPreview(false)}>Edit</button>
+                                <button type="button" className="travel-secondary-button" onClick={handleEditProposal}>Edit</button>
                                 <button type="button" className="travel-primary-button" onClick={() => window.print()}>Print / Save PDF</button>
                             </>
                         ) : (
