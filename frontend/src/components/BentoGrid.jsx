@@ -710,6 +710,12 @@ const defaultProposalTemplate = {
     ],
 };
 
+const createDefaultProposalTemplate = () => ({
+    ...defaultProposalTemplate,
+    flights: defaultProposalTemplate.flights.map((flight) => ({ ...flight })),
+    itineraryDays: defaultProposalTemplate.itineraryDays.map((day) => ({ ...day })),
+});
+
 const splitProposalLines = (value) =>
     value
         .split('\n')
@@ -865,7 +871,7 @@ const ProposalPreview = ({ proposal }) => {
 };
 
 const ProposalTemplateModal = ({ isOpen, onClose }) => {
-    const [proposal, setProposal] = useState(defaultProposalTemplate);
+    const [proposal, setProposal] = useState(() => createDefaultProposalTemplate());
     const [showPreview, setShowPreview] = useState(false);
 
     if (!isOpen) return null;
@@ -901,6 +907,10 @@ const ProposalTemplateModal = ({ isOpen, onClose }) => {
         setShowPreview(true);
     };
 
+    const handleResetProposal = () => {
+        setProposal(createDefaultProposalTemplate());
+    };
+
     return (
         <div className="travel-modal-shell" role="dialog" aria-modal="true" aria-labelledby="proposal-template-title">
             <div className="travel-modal-panel proposal-modal-panel">
@@ -926,7 +936,7 @@ const ProposalTemplateModal = ({ isOpen, onClose }) => {
                     <form className="proposal-builder-form no-print" onSubmit={handleSubmit}>
                         <div className="travel-form-actions proposal-form-actions-top">
                             <button type="submit" className="travel-primary-button">Final Preview</button>
-                            <button type="button" className="travel-secondary-button" onClick={() => setProposal(defaultProposalTemplate)}>Reset Sample</button>
+                            <button type="button" className="travel-secondary-button" onClick={handleResetProposal}>Reset Sample</button>
                         </div>
 
                         <div className="proposal-builder-grid">
@@ -1024,7 +1034,7 @@ const ProposalTemplateModal = ({ isOpen, onClose }) => {
 
                         <div className="travel-form-actions">
                             <button type="submit" className="travel-primary-button">Final Preview</button>
-                            <button type="button" className="travel-secondary-button" onClick={() => setProposal(defaultProposalTemplate)}>Reset Sample</button>
+                            <button type="button" className="travel-secondary-button" onClick={handleResetProposal}>Reset Sample</button>
                         </div>
                     </form>
                 )}
@@ -1099,16 +1109,7 @@ export default function BentoGrid() {
                                 <div className="card-body">
                                     <h3 className="card-heading">Tours & Travels</h3>
                                     <p className="card-sub">
-                                        Trace a 2,500km ancient Indian legacy passing through historic deltas, heritage trails, and local
-                                        <a
-                                            href="https://thesource.sa.ua.edu/wp-content/uploads/sites/57/2020/03/Sample-Travel-Itinerary-2.pdf"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="read-more-link"
-                                            style={{ color: '#000000', fontWeight: '700', textDecoration: 'underline', marginLeft: '4px' }}
-                                        >
-                                            ...Read More ↗
-                                        </a>
+                                        Trace a 2,500km ancient Indian legacy passing through historic deltas, heritage trails, and local culture.
                                     </p>
                                     <button
                                         type="button"
