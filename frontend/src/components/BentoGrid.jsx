@@ -924,6 +924,11 @@ const ProposalTemplateModal = ({ isOpen, onClose }) => {
                     <ProposalPreview proposal={proposal} />
                 ) : (
                     <form className="proposal-builder-form no-print" onSubmit={handleSubmit}>
+                        <div className="travel-form-actions proposal-form-actions-top">
+                            <button type="submit" className="travel-primary-button">Final Preview</button>
+                            <button type="button" className="travel-secondary-button" onClick={() => setProposal(defaultProposalTemplate)}>Reset Sample</button>
+                        </div>
+
                         <div className="proposal-builder-grid">
                             <label><span>Brand / company</span><input name="brand" value={proposal.brand} onChange={handleChange} required /></label>
                             <label><span>Country / place</span><input name="destination" value={proposal.destination} onChange={handleChange} required /></label>
