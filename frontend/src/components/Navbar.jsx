@@ -9,6 +9,7 @@
                 <a href="#">Benefits</a>
                 <a href="#">Features</a>
                 <a href="#">Pricing</a>
+                <a href="/gst-certificate-signed.pdf" target="_blank" rel="noopener noreferrer">GST Details</a>
             </div>
 
             <a href="#" className="cta-btn">
