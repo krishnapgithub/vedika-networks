@@ -2,9 +2,9 @@ export default function Hero() {
     return (
         <div className="hero-section">
             <h1 className="hero-title">
-                One Network.
+                One Platform.
                 <br />
-                Making Ecosystems.
+                Multiple Ecosystems.
             </h1>
 
             <p className="hero-desc">
