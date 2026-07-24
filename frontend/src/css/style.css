@@ -58,7 +58,8 @@ body {
 }
 
 .nav-links a,
-.gst-nav-button {
+.gst-nav-button,
+.nav-popup-button {
 		text-decoration: none;
 		color: #475569;
 		font-size: 0.85rem;
@@ -71,7 +72,8 @@ body {
 	}
 
 		.nav-links a:hover,
-		.gst-nav-button:hover {
+		.gst-nav-button:hover,
+		.nav-popup-button:hover {
 			color: #000000;
 		}
 
@@ -84,6 +86,9 @@ body {
 	border-radius: 9999px;
 	font-weight: 500;
 	transition: opacity 0.2s ease;
+	border: 0;
+	font-family: inherit;
+	cursor: pointer;
 }
 
 	.cta-btn:hover {
@@ -208,6 +213,41 @@ body {
 	font-size: 0.78rem;
 	font-weight: 650;
 	background: #f8fbfd;
+}
+
+.section-modal {
+	width: min(90vw, 520px);
+	position: relative;
+	padding: 32px;
+	background: #ffffff;
+	border: 1px solid #cfe1ee;
+	border-radius: 20px;
+	box-shadow: 0 28px 90px rgba(6, 20, 43, 0.28);
+}
+
+.section-modal-label {
+	color: #60738a;
+	font-size: 0.76rem;
+	font-weight: 850;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	margin-bottom: 8px;
+}
+
+.section-modal h2 {
+	color: #06142b;
+	font-size: clamp(1.8rem, 5vw, 2.4rem);
+	line-height: 1;
+	font-weight: 850;
+	letter-spacing: 0;
+	margin-bottom: 14px;
+}
+
+.section-modal p:last-child {
+	color: #475569;
+	font-size: 1rem;
+	font-weight: 600;
+	line-height: 1.55;
 }
 
 
