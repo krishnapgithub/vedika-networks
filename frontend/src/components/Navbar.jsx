@@ -34,10 +34,7 @@ export default function Navbar() {
                         onClick={(event) => event.stopPropagation()}
                     >
                         <div className="gst-modal-header">
-                            <div>
-                                <p className="gst-modal-eyebrow">GST Details</p>
-                                <h2 id="gst-modal-title">Vedika Networks</h2>
-                            </div>
+                            <span id="gst-modal-title">GST Information</span>
                             <button
                                 type="button"
                                 className="gst-modal-close"
@@ -84,14 +81,7 @@ export default function Navbar() {
                             </div>
                         </dl>
 
-                        <div className="gst-modal-actions">
-                            <a href="/gst-certificate-signed.pdf" target="_blank" rel="noopener noreferrer">
-                                View Certificate
-                            </a>
-                            <a href="https://www.gst.gov.in/" target="_blank" rel="noopener noreferrer">
-                                Verify on GST Portal
-                            </a>
-                        </div>
+                        <p className="gst-modal-note">Information shown for public GST verification.</p>
                     </section>
                 </div>
             )}
