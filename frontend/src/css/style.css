@@ -260,10 +260,8 @@ body {
    ========================================================================== */
 .content-wrapper {
 	background-color: #f1f3f5;
-	/* 🚀 CHANGE THIS: Sets the box to 90% of screen width, leaving 5% gaps on both sides */
-	width: 90% !important;
-	max-width: 1400px;
-	/* 🚀 CRITICAL: Centers the container perfectly on the page */
+	width: calc(100vw - 40px) !important;
+	max-width: none;
 	margin: 0 auto !important;
 	border-radius: 24px 24px 0 0;
 	flex: 1;
@@ -289,8 +287,7 @@ body {
    ========================================================================== */
 .main-container {
 	width: 100%;
-	/* CHANGE THIS: 8px top, 24px right, 24px bottom, 24px left */
-	padding: 8px 24px 24px 24px;
+	padding: 8px 28px 24px 28px;
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
@@ -335,14 +332,14 @@ body {
 .bento-grid-main-layout {
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
+	gap: 18px;
 	align-items: start;
 }
 
 .grid-left-zone {
 	display: grid;
 	grid-template-columns: repeat(4, minmax(0, 1fr));
-	gap: 20px;
+	gap: 18px;
 	align-items: stretch;
 	width: 100%;
 }
@@ -376,7 +373,7 @@ body {
 .grid-right-zone {
 	display: grid !important;
 	grid-template-columns: repeat(4, minmax(0, 1fr));
-	gap: 20px;
+	gap: 18px;
 	width: 100% !important;
 	height: auto !important;
 }
