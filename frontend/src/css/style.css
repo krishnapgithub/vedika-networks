@@ -1493,8 +1493,24 @@ body {
    7. Mobile Media Queries (Natural Fallback Flow for Phones)
    ========================================================================== */
 @media (max-width: 1024px) {
+	body {
+		overflow-y: auto;
+	}
+
+	.content-wrapper {
+		height: auto;
+		min-height: calc(100vh - 90px);
+		overflow: visible;
+	}
+
+	.main-container {
+		height: auto;
+	}
+
 	.bento-grid-main-layout {
 		gap: 18px;
+		flex: none;
+		overflow: visible;
 	}
 
 	.grid-left-zone {
