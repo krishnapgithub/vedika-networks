@@ -5,10 +5,6 @@ import React, { useState, useEffect } from 'react';
 const marketSymbols = [
     { key: 'nifty50', label: 'NIFTY 50', exchange: 'NSE', symbol: '^NSEI' },
     { key: 'sensex', label: 'SENSEX', exchange: 'BSE', symbol: '^BSESN' },
-    { key: 'bank', label: 'Nifty Bank', exchange: 'NSE', symbol: '^NSEBANK' },
-    { key: 'it', label: 'Nifty IT', exchange: 'NSE', symbol: '^CNXIT' },
-    { key: 'pharma', label: 'Nifty Pharma', exchange: 'NSE', symbol: '^CNXPHARMA' },
-    { key: 'metal', label: 'Nifty Metal', exchange: 'NSE', symbol: '^CNXMETAL' },
 ];
 
 const initialMarketRows = marketSymbols.map((item) => ({
@@ -112,8 +108,6 @@ const MarketDataCard = () => {
     }, []);
 
     const tickerRows = marketRows.slice(0, 2);
-    const sectorRows = marketRows.slice(2);
-
     return (
         <div className="card" style={{ display: 'flex', flexDirection: 'column' }}>
             {/* Black Live Ticker Header */}
@@ -162,78 +156,49 @@ const MarketDataCard = () => {
                     </a>
                 </div>
 
-                {/* Row 2: Live Sector Performance Grid */}
-                <div className="market-sector-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px', background: '#f8fafc', padding: '12px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
-                    {sectorRows.map((market) => {
-                        const direction = getMarketDirection(market.changePercent);
-                        const color = direction === 'gain' ? '#22c55e' : direction === 'loss' ? '#ef4444' : '#64748b';
+                <div className="market-info-card">
+                    <div className="market-news-strip">
+                        {marketNews.map((item, index) => (
+                            <a
+                                key={`${item.link}-${index}`}
+                                href={item.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="market-news-link"
+                            >
+                                {item.text}
+                            </a>
+                        ))}
+                    </div>
 
-                        return (
-                            <div key={market.key} style={{ display: 'flex', justifyContent: 'space-between', gap: '8px', fontSize: '0.75rem' }}>
-                                <span style={{ color: '#64748b' }}>{market.label}</span>
-                                <span style={{ fontWeight: '600', color, textAlign: 'right' }}>
-                                    {market.status === 'unavailable' ? 'retrying' : formatMarketChange(market.changePercent)}
-                                </span>
-                            </div>
-                        );
-                    })}
-                </div>
+                    <div className="market-status-strip">
+                        <div><span style={{ fontWeight: '600' }}>Markets:</span> {marketUpdatedAt ? `Live ${marketUpdatedAt}` : 'loading...'}</div>
+                        <div>
+                            <span style={{ fontWeight: '600' }}>USD/INR:</span> {isLoading ? (
+                                <span style={{ color: '#64748b', fontStyle: 'italic' }}> loading...</span>
+                            ) : rateError ? (
+                                <span style={{ color: '#ef4444', fontWeight: '600' }}> {rateError}</span>
+                            ) : (
+                                <span style={{ fontWeight: '700', color: '#1e3a8a' }}> ₹{usdInr}</span>
+                            )}
+                        </div>
+                    </div>
 
-                <div className="market-news-strip">
-                    {marketNews.map((item, index) => (
-                        <a
-                            key={`${item.link}-${index}`}
-                            href={item.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="market-news-link"
-                        >
-                            {item.text}
+                    {rateUpdatedAt && (
+                        <div className="market-rate-updated">
+                            USD/INR {rateUpdatedAt}
+                        </div>
+                    )}
+
+                    <div className="market-index-quicklinks">
+                        <span>Direct Trackers:</span>
+                        <a href="https://nseindia.com" target="_blank" rel="noopener noreferrer">
+                            NSE Nifty 50
                         </a>
-                    ))}
-                </div>
-
-                {/* Row 3: Live Market Status Indicators (Featuring our DYNAMIC floating values) */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: '#475569', background: '#eff6ff', padding: '8px 12px', borderRadius: '6px' }}>
-                    <div>📊 <span style={{ fontWeight: '600' }}>Markets:</span> {marketUpdatedAt ? `Live ${marketUpdatedAt}` : 'loading...'}</div>
-
-                    {/* 🚀 The data floats dynamically here! */}
-                    <div>
-                        💵 <span style={{ fontWeight: '600' }}>USD/INR:</span> {isLoading ? (
-                            <span style={{ color: '#64748b', fontStyle: 'italic' }}>loading...</span>
-                        ) : rateError ? (
-                            <span style={{ color: '#ef4444', fontWeight: '600' }}>{rateError}</span>
-                        ) : (
-                            <span style={{ fontWeight: '700', color: '#1e3a8a' }}>₹{usdInr}</span>
-                        )}
+                        <a href="https://bseindia.com" target="_blank" rel="noopener noreferrer">
+                            BSE Sensex
+                        </a>
                     </div>
-                </div>
-
-                {rateUpdatedAt && (
-                    <div style={{ marginTop: '-10px', fontSize: '0.66rem', color: '#64748b', textAlign: 'right' }}>
-                        USD/INR {rateUpdatedAt}
-                    </div>
-                )}
-
-                {/* Row 4: Inline Micro-Hyperlinks Footer */}
-                <div className="market-index-quicklinks" style={{ display: 'flex', gap: '12px', fontSize: '0.72rem', borderTop: '1px solid #f1f5f9', paddingTop: '10px', marginTop: 'auto' }}>
-                    <span style={{ color: '#64748b', fontWeight: '500' }}>Direct Trackers:</span>
-                    <a
-                        href="https://nseindia.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{ color: '#0f172a', fontWeight: '600', textDecoration: 'underline' }}
-                    >
-                        NSE Nifty 50
-                    </a>
-                    <a
-                        href="https://bseindia.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{ color: '#0f172a', fontWeight: '600', textDecoration: 'underline' }}
-                    >
-                        BSE Sensex
-                    </a>
                 </div>
             </div>
         </div>
