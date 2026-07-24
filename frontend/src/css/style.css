@@ -333,19 +333,18 @@ body {
    ========================================================================== */
 
 .bento-grid-main-layout {
-	display: grid;
-	grid-template-columns: 2fr 1fr; /* Left zone takes 2 parts, right side takes 1 */
+	display: flex;
+	flex-direction: column;
 	gap: 20px;
-	/* 🚀 CRITICAL: Prevents the right column height from forcing the left zone to stretch */
 	align-items: start;
 }
-/* 2x2 Left Sub-Grid Area */
+
 .grid-left-zone {
 	display: grid;
-	grid-template-columns: repeat(2, 1fr); /* Keeps your 2x2 horizontal layout */
+	grid-template-columns: repeat(4, minmax(0, 1fr));
 	gap: 20px;
-	/* 🚀 CRITICAL: Tells the left cards to stack neatly without forcing row-height match constraints */
-	align-items: start;
+	align-items: stretch;
+	width: 100%;
 }
 
 
@@ -375,7 +374,9 @@ body {
 
 /* 3. Keep the parent container completely clean and non-restrictive */
 .grid-right-zone {
-	display: block !important; /* 🚀 Changes to a standard block flow to let card margins work perfectly */
+	display: grid !important;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 20px;
 	width: 100% !important;
 	height: auto !important;
 }
@@ -405,10 +406,16 @@ body {
 	height: auto;
 }
 
+.grid-left-zone > .card {
+	width: 100%;
+	height: 360px;
+	align-self: stretch;
+}
+
 /* Image Box Frame Aspect Scaling Fixes */
 .card-image-box {
 	width: 100%;
-	height: 145px;
+	height: 150px;
 	flex-shrink: 0;
 	border-radius: 10px;
 	overflow: hidden;
@@ -428,6 +435,7 @@ body {
 	flex: 1;
 	min-height: 0;
 	justify-content: flex-start;
+	overflow: hidden;
 }
 
 /* Text Layout Alignment Overrides for Cards 6 & 7 */
@@ -444,6 +452,10 @@ body {
 	color: #64748b;
 	font-size: 0.78rem;
 	line-height: 1.35;
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
 }
 
 .travel-card-action {
@@ -1275,7 +1287,15 @@ body {
    ========================================================================== */
 @media (max-width: 1024px) {
 	.bento-grid-main-layout {
-		grid-template-columns: 1fr 320px; /* Narrower right sidebar on medium tablets */
+		gap: 18px;
+	}
+
+	.grid-left-zone {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.grid-right-zone {
+		grid-template-columns: 1fr !important;
 	}
 }
 
