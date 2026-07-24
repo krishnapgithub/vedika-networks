@@ -122,35 +122,29 @@ const MarketDataCard = () => {
         return () => window.clearInterval(refreshTimer);
     }, []);
 
-    const tickerRows = marketRows.slice(0, 2);
     return (
         <>
             <div className="card market-ticker-card">
-            <div className="card-image-box ticker-box">
-                <div className="market-grid-container" style={{ height: '100%', justifyContent: 'center' }}>
-                    {tickerRows.map((market) => {
-                        const direction = getMarketDirection(market.changePercent);
-
-                        return (
-                            <div key={market.key} className="market-metric-row">
-                                <div className="metric-identity">
-                                    <span className="metric-symbol">{market.label}</span>
-                                    <span className="metric-exchange">{market.exchange} live</span>
-                                </div>
-                                <div className="metric-figures">
-                                    <span className="metric-price">{market.value || (market.status === 'unavailable' ? 'retrying' : 'loading...')}</span>
-                                    <span className={`metric-percent ${direction}`}>
-                                        {market.status === 'unavailable' ? 'feed unavailable' : formatMarketChange(market.changePercent)}
-                                    </span>
-                                </div>
-                            </div>
-                        );
-                    })}
-                    <div className="metric-divider-line" />
-                    <div style={{ display: 'flex', justifyContent: 'space-between', color: '#94a3b8', fontSize: '0.68rem', fontWeight: 600 }}>
-                        <span>Public live market feed</span>
-                        <span>{marketUpdatedAt ? `Refreshed ${marketUpdatedAt}` : 'Fetching...'}</span>
+            <div className="card-image-box ticker-box movie-live-box">
+                <div className="movie-live-content">
+                    <div className="movie-live-header">
+                        <div>
+                            <span className="movie-live-kicker">Nearby Theater Movies</span>
+                            <strong>Live Shows</strong>
+                        </div>
+                        <span className="movie-live-badge">LIVE</span>
                     </div>
+                    <div className="movie-show-list">
+                        <div>
+                            <span>Premiere Screen</span>
+                            <strong>6:30 pm</strong>
+                        </div>
+                        <div>
+                            <span>Family Show</span>
+                            <strong>8:45 pm</strong>
+                        </div>
+                    </div>
+                    <p>Sample live movie schedule. Local listings coming soon.</p>
                 </div>
             </div>
             </div>
@@ -168,8 +162,20 @@ const MarketDataCard = () => {
                         View Live Panel ↗
                     </a>
                 </div>
+                <div className="market-rate-row">
+                    <div className="market-header-rate">
+                        <span>USD/INR</span>
+                        {isLoading ? (
+                            <strong>loading...</strong>
+                        ) : rateError ? (
+                            <strong className="rate-error">{rateError}</strong>
+                        ) : (
+                            <strong>₹{usdInr}</strong>
+                        )}
+                    </div>
+                    <span>{marketUpdatedAt ? `Updated ${marketUpdatedAt}` : 'Fetching time...'}</span>
+                </div>
 
-                <div className="market-info-card">
                     <div className="market-news-strip">
                         {marketNews.map((item, index) => (
                             <a
@@ -183,36 +189,6 @@ const MarketDataCard = () => {
                             </a>
                         ))}
                     </div>
-
-                    <div className="market-status-strip">
-                        <div><span style={{ fontWeight: '600' }}>Markets:</span> {marketUpdatedAt ? `Live ${marketUpdatedAt}` : 'loading...'}</div>
-                        <div>
-                            <span style={{ fontWeight: '600' }}>USD/INR:</span> {isLoading ? (
-                                <span style={{ color: '#64748b', fontStyle: 'italic' }}> loading...</span>
-                            ) : rateError ? (
-                                <span style={{ color: '#ef4444', fontWeight: '600' }}> {rateError}</span>
-                            ) : (
-                                <span style={{ fontWeight: '700', color: '#1e3a8a' }}> ₹{usdInr}</span>
-                            )}
-                        </div>
-                    </div>
-
-                    {rateUpdatedAt && (
-                        <div className="market-rate-updated">
-                            USD/INR {rateUpdatedAt}
-                        </div>
-                    )}
-
-                    <div className="market-index-quicklinks">
-                        <span>Direct Trackers:</span>
-                        <a href="https://nseindia.com" target="_blank" rel="noopener noreferrer">
-                            NSE Nifty 50
-                        </a>
-                        <a href="https://bseindia.com" target="_blank" rel="noopener noreferrer">
-                            BSE Sensex
-                        </a>
-                    </div>
-                </div>
             </div>
             </div>
         </>
@@ -396,6 +372,41 @@ const LICUpdatesCard = () => {
                     </ul>
                 </div>
             </div>
+        </div>
+    );
+};
+
+const OperationalContactModal = ({ isOpen, onClose }) => {
+    if (!isOpen) return null;
+
+    return (
+        <div className="operational-contact-backdrop" role="presentation" onClick={onClose}>
+            <section
+                className="operational-contact-modal"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="operational-contact-title"
+                onClick={(event) => event.stopPropagation()}
+            >
+                <button
+                    type="button"
+                    className="operational-contact-close"
+                    aria-label="Close operational contact"
+                    onClick={onClose}
+                >
+                    X
+                </button>
+                <p className="operational-contact-label">Operational Control</p>
+                <h2 id="operational-contact-title">Contact Details</h2>
+                <div className="operational-contact-card">
+                    <span>Name</span>
+                    <strong>Arvind Babu K</strong>
+                </div>
+                <div className="operational-contact-card">
+                    <span>Phone</span>
+                    <a href="tel:+919963854127">+91 99638 54127</a>
+                </div>
+            </section>
         </div>
     );
 };
@@ -1049,6 +1060,7 @@ const ProposalTemplateModal = ({ isOpen, onClose }) => {
 export default function BentoGrid() {
     const [isTravelPlannerOpen, setIsTravelPlannerOpen] = useState(false);
     const [isProposalTemplateOpen, setIsProposalTemplateOpen] = useState(false);
+    const [isOperationalContactOpen, setIsOperationalContactOpen] = useState(false);
 
     return (
         <div className="layout-page-container">
@@ -1098,16 +1110,21 @@ export default function BentoGrid() {
                             {/* Card 1: Tours & Travels with Historical Narrative */}
                             {/* Card 1: Tours & Travels */}
                             {/* Card 1: Tours & Travels with PDF Integration */}
-                            <div className="card travel-story-card">
-                                {/* 🚀 Clicking this image or its text link now securely launches the itinerary PDF in a fresh tab */}
-                                <a
-                                    href="https://thesource.sa.ua.edu/wp-content/uploads/sites/57/2020/03/Sample-Travel-Itinerary-2.pdf"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="card-image-box"
-                                >
+                            <div
+                                className="card travel-story-card clickable-card"
+                                role="button"
+                                tabIndex={0}
+                                onClick={() => setIsProposalTemplateOpen(true)}
+                                onKeyDown={(event) => {
+                                    if (event.key === 'Enter' || event.key === ' ') {
+                                        event.preventDefault();
+                                        setIsProposalTemplateOpen(true);
+                                    }
+                                }}
+                            >
+                                <div className="card-image-box">
                                     <img src="travel.png" alt="Tours and Travels" />
-                                </a>
+                                </div>
                                 <div className="card-body">
                                     <h3 className="card-heading">Tours & Travels</h3>
                                     <p className="card-sub">
@@ -1116,7 +1133,10 @@ export default function BentoGrid() {
                                     <button
                                         type="button"
                                         className="travel-card-action travel-card-action-secondary"
-                                        onClick={() => setIsProposalTemplateOpen(true)}
+                                        onClick={(event) => {
+                                            event.stopPropagation();
+                                            setIsProposalTemplateOpen(true);
+                                        }}
                                     >
                                         Create Proposal PDF
                                     </button>
@@ -1140,10 +1160,21 @@ export default function BentoGrid() {
                             </div>
 
                             {/* Card 3: Web Portal Creation */}
-                            <div className="card">
-                                <a href="https://nichayavedika/portals" target="_blank" rel="noopener noreferrer" className="card-image-box">
+                            <div
+                                className="card clickable-card"
+                                role="button"
+                                tabIndex={0}
+                                onClick={() => window.open('/operational-guide.html', '_blank', 'noopener,noreferrer')}
+                                onKeyDown={(event) => {
+                                    if (event.key === 'Enter' || event.key === ' ') {
+                                        event.preventDefault();
+                                        window.open('/operational-guide.html', '_blank', 'noopener,noreferrer');
+                                    }
+                                }}
+                            >
+                                <div className="card-image-box">
                                     <img src="webdesign.png" alt="Web design services" />
-                                </a>
+                                </div>
                                 <div className="card-body">
                                     <h3 className="card-heading">Web Portal Creation</h3>
                                     <p className="card-sub">
@@ -1153,33 +1184,30 @@ export default function BentoGrid() {
                             </div>
 
                             {/* Card 4: Operational Control with PDF Integration */}
-                            <div className="card operational-control-card">
-                                {/* 🚀 Clicking this gear banner launches your local public PDF in a brand-new browser window */}
-                                <a
-                                    href="/operational-guide.pdf"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                            <div
+                                className="card operational-control-card clickable-card"
+                                role="button"
+                                tabIndex={0}
+                                onClick={() => setIsOperationalContactOpen(true)}
+                                onKeyDown={(event) => {
+                                    if (event.key === 'Enter' || event.key === ' ') {
+                                        event.preventDefault();
+                                        setIsOperationalContactOpen(true);
+                                    }
+                                }}
+                            >
+                                <div
                                     className="card-image-box operational-bg"
                                     style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}
                                 >
                                     <span className="gear-icon">⚙️</span>
-                                </a>
+                                </div>
                                 <div className="card-body">
                                     <h3 className="card-heading">Operational Control</h3>
                                     <p className="card-sub" style={{ marginBottom: '12px' }}>
                                         Supervise cross-department workflows seamlessly with live triggers and framework manuals.
                                     </p>
 
-                                    {/* Dedicated explicit text link pointing directly to the public PDF folder asset */}
-                                    <a
-                                        href="/operational-guide.html"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="operational-manual-link"
-                                        style={{ display: 'inline-flex', alignItems: 'center', fontSize: '0.75rem', fontWeight: '700', color: '#000000', textDecoration: 'underline', gap: '4px' }}
-                                    >
-                                        View Proposal Manual ↗
-                                    </a>
                                 </div>
                             </div>
 
@@ -1223,6 +1251,7 @@ export default function BentoGrid() {
             </div> {/* End content-wrapper */}
             <TravelPlanModal isOpen={isTravelPlannerOpen} onClose={() => setIsTravelPlannerOpen(false)} />
             <ProposalTemplateModal isOpen={isProposalTemplateOpen} onClose={() => setIsProposalTemplateOpen(false)} />
+            <OperationalContactModal isOpen={isOperationalContactOpen} onClose={() => setIsOperationalContactOpen(false)} />
         </div>
     );
 }
