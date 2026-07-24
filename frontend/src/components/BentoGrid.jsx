@@ -1099,7 +1099,7 @@ export default function BentoGrid() {
                     <div className="hero-section">
                         <div className="hero-flex-box">
                             <h1 className="hero-title">
-                                One Ecosystem.<br /> Infinite Possibilities....
+                                One Network.<br /> Making Ecosystems....
                             </h1>
                             <p className="hero-desc">
                                 Turning Dreams into Destinations, Relationships into Lifelong Bonds, and Ideas into Digital Success.
