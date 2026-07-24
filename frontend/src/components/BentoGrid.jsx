@@ -156,15 +156,14 @@ const MarketDataCard = () => {
             </div>
 
             <div className="card market-info-summary-card">
-                <div className="card-body" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '14px', flex: 1 }}>
-                <div className="market-header-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                    <h3 className="card-heading" style={{ margin: 0, fontSize: '1rem', fontWeight: '600' }}>Live Market Data</h3>
+                <div className="card-body">
+                <div className="market-header-row">
+                    <h3 className="card-heading">Live Market Data</h3>
                     <a
                         href="https://tradingview.com"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="market-portal-link"
-                        style={{ fontSize: '0.72rem', fontWeight: '600', color: '#2563eb', textDecoration: 'none' }}
                     >
                         View Live Panel ↗
                     </a>

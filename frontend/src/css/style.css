@@ -413,6 +413,10 @@ body {
 	align-self: stretch;
 }
 
+.grid-right-zone > .card {
+	padding: 18px;
+}
+
 /* Image Box Frame Aspect Scaling Fixes */
 .card-image-box {
 	width: 100%;
@@ -1621,7 +1625,8 @@ body {
 	margin: 0;
 	display: flex;
 	flex-direction: column;
-	gap: 14px;
+	gap: 10px;
+	overflow: hidden;
 }
 
 .news-link {
@@ -1651,6 +1656,10 @@ body {
 	font-weight: 500;
 	line-height: 1.35;
 	margin: 0;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
 }
 
 @keyframes blink {
@@ -1706,7 +1715,9 @@ body {
 .lic-section {
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
+	gap: 8px;
+	min-height: 0;
+	overflow: hidden;
 }
 
 .lic-section-title {
@@ -1723,7 +1734,8 @@ body {
 	margin: 0;
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
+	gap: 8px;
+	overflow: hidden;
 }
 
 .lic-link-item {
@@ -1731,7 +1743,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	gap: 4px;
-	padding: 8px;
+	padding: 7px 8px;
 	border-radius: 8px;
 	background: #f8fafc;
 	border: 1px solid transparent;
@@ -1757,6 +1769,10 @@ body {
 	color: #0f172a;
 	line-height: 1.3;
 	min-width: 0;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
 }
 
 .lic-link-item:hover .policy-name {
@@ -1890,7 +1906,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	gap: 6px;
-	padding: 10px 12px;
+	padding: 9px 10px;
 	border: 1px solid #e2e8f0;
 	border-radius: 8px;
 	background: #ffffff;
@@ -1899,21 +1915,24 @@ body {
 .market-info-card {
 	display: flex;
 	flex-direction: column;
-	gap: 12px;
-	padding: 14px;
+	gap: 10px;
+	padding: 12px;
 	border: 1px solid #dbe7f1;
 	border-radius: 12px;
 	background: #ffffff;
 	box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
+	min-height: 0;
+	overflow: hidden;
+	flex: 1;
 }
 
 .market-status-strip {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
-	gap: 10px;
+	gap: 8px;
 	color: #475569;
 	background: #eff6ff;
-	padding: 10px 12px;
+	padding: 8px 10px;
 	border-radius: 8px;
 	font-size: 0.72rem;
 }
@@ -1921,9 +1940,13 @@ body {
 .market-rate-updated {
 	margin-top: -4px;
 	color: #64748b;
-	font-size: 0.66rem;
+	font-size: 0.62rem;
 	line-height: 1.35;
 	text-align: right;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
 }
 
 .market-index-quicklinks {
@@ -1931,8 +1954,10 @@ body {
 	align-items: flex-start;
 	gap: 12px;
 	border-top: 1px solid #edf3f7;
-	padding-top: 11px;
+	padding-top: 9px;
 	font-size: 0.72rem;
+	min-height: 0;
+	overflow: hidden;
 }
 
 .market-index-quicklinks span {
@@ -1956,6 +1981,34 @@ body {
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
+}
+
+.market-info-summary-card .card-body {
+	padding: 0 !important;
+	gap: 10px;
+	overflow: hidden;
+}
+
+.market-header-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: 10px;
+}
+
+.market-header-row .card-heading {
+	margin: 0;
+	font-size: 0.95rem;
+	line-height: 1.15;
+}
+
+.market-portal-link {
+	color: #2563eb;
+	font-size: 0.68rem;
+	font-weight: 700;
+	line-height: 1.25;
+	text-decoration: none;
+	max-width: 84px;
 }
 
 .market-news-link:hover {
