@@ -375,7 +375,7 @@ body {
 /* 3. Keep the parent container completely clean and non-restrictive */
 .grid-right-zone {
 	display: grid !important;
-	grid-template-columns: repeat(3, minmax(0, 1fr));
+	grid-template-columns: repeat(4, minmax(0, 1fr));
 	gap: 20px;
 	width: 100% !important;
 	height: auto !important;
@@ -406,16 +406,17 @@ body {
 	height: auto;
 }
 
-.grid-left-zone > .card {
+.grid-left-zone > .card,
+.grid-right-zone > .card {
 	width: 100%;
-	height: 380px;
+	height: 285px !important;
 	align-self: stretch;
 }
 
 /* Image Box Frame Aspect Scaling Fixes */
 .card-image-box {
 	width: 100%;
-	height: 150px;
+	height: 128px;
 	flex-shrink: 0;
 	border-radius: 10px;
 	overflow: hidden;
@@ -456,6 +457,12 @@ body {
 	-webkit-line-clamp: 4;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
+}
+
+.more-link {
+	color: #2563eb;
+	font-weight: 800;
+	white-space: nowrap;
 }
 
 .travel-card-action {

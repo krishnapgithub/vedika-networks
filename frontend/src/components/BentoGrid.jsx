@@ -40,6 +40,21 @@ const fallbackMarketNews = [
     },
 ];
 
+const renderLimitedText = (text = '', link = '#', limit = 100) => {
+    const trimmedText = text.trim();
+
+    if (trimmedText.length <= limit) return trimmedText;
+
+    return (
+        <>
+            {trimmedText.slice(0, limit).trim()}{' '}
+            <span className="more-link">
+                ...more
+            </span>
+        </>
+    );
+};
+
 // Place this right inside your main BentoGrid component code 
 const MarketDataCard = () => {
     // 🚀 React State Variables to hold live floating values
@@ -109,8 +124,8 @@ const MarketDataCard = () => {
 
     const tickerRows = marketRows.slice(0, 2);
     return (
-        <div className="card" style={{ display: 'flex', flexDirection: 'column' }}>
-            {/* Black Live Ticker Header */}
+        <>
+            <div className="card market-ticker-card">
             <div className="card-image-box ticker-box">
                 <div className="market-grid-container" style={{ height: '100%', justifyContent: 'center' }}>
                     {tickerRows.map((market) => {
@@ -138,11 +153,10 @@ const MarketDataCard = () => {
                     </div>
                 </div>
             </div>
+            </div>
 
-            {/* Restructured Content Box */}
-            <div className="card-body" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px', flex: 1 }}>
-
-                {/* Row 1: Header and Portal Action */}
+            <div className="card market-info-summary-card">
+                <div className="card-body" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '14px', flex: 1 }}>
                 <div className="market-header-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
                     <h3 className="card-heading" style={{ margin: 0, fontSize: '1rem', fontWeight: '600' }}>Live Market Data</h3>
                     <a
@@ -166,7 +180,7 @@ const MarketDataCard = () => {
                                 rel="noopener noreferrer"
                                 className="market-news-link"
                             >
-                                {item.text}
+                                {renderLimitedText(item.text, item.link)}
                             </a>
                         ))}
                     </div>
@@ -201,7 +215,8 @@ const MarketDataCard = () => {
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
+        </>
     );
 };
 
@@ -285,7 +300,7 @@ const PoliticalNewsCard = () => {
                                 <span className="news-time">
                                     {item.source || item.category || 'Politics'} · {formatNewsTime(item.publishedAt)}
                                 </span>
-                                <p className="news-text">{item.text}</p>
+                                <p className="news-text">{renderLimitedText(item.text, item.link)}</p>
                             </a>
                         </li>
                     ))}
@@ -370,7 +385,7 @@ const LICUpdatesCard = () => {
                                     className="lic-link-item"
                                 >
                                     <div className="policy-meta">
-                                        <span className="policy-name">{item.text}</span>
+                                        <span className="policy-name">{renderLimitedText(item.text, item.link)}</span>
                                         <span className="policy-tag">{getLicPolicyTag(item.text, index)}</span>
                                     </div>
                                     <p className="policy-desc">
