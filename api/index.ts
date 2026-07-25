@@ -1,6 +1,26 @@
 ﻿import { Hono } from "hono";
 
-const app = new Hono<{ Bindings: CloudflareBindings }>();
+type AppBindings = CloudflareBindings & {
+    ASSETS: Fetcher;
+    TMDB_ACCESS_TOKEN: string;
+};
+
+interface TmdbMovie {
+    id: number;
+    title?: string;
+    original_title?: string;
+    vote_average?: number;
+    poster_path?: string | null;
+    backdrop_path?: string | null;
+    release_date?: string;
+    overview?: string;
+}
+
+interface TmdbTrendingResponse {
+    results?: TmdbMovie[];
+}
+
+const app = new Hono<{ Bindings: AppBindings }>();
 
 const stripHtml = (value = "") =>
     value
@@ -160,6 +180,78 @@ const fetchGoogleNewsItems = async (feedUrl: string, category: string, limit = 5
         .filter((item) => item.text && item.link);
 };
 
+const getTrendingMovies = async (env: AppBindings): Promise<Response> => {
+    if (!env.TMDB_ACCESS_TOKEN) {
+        return Response.json(
+            {
+                success: false,
+                message: "TMDB_ACCESS_TOKEN is not configured",
+            },
+            { status: 500 }
+        );
+    }
+
+    try {
+        const response = await fetch(
+            "https://api.themoviedb.org/3/trending/movie/day?language=en-US",
+            {
+                headers: {
+                    Authorization: `Bearer ${env.TMDB_ACCESS_TOKEN}`,
+                    Accept: "application/json",
+                },
+            }
+        );
+
+        if (!response.ok) {
+            const details = await response.text();
+            console.error("TMDB API error:", response.status, details);
+
+            return Response.json(
+                {
+                    success: false,
+                    message: "Unable to retrieve trending movies",
+                    tmdbStatus: response.status,
+                },
+                { status: response.status }
+            );
+        }
+
+        const data = await response.json() as TmdbTrendingResponse;
+        const results = Array.isArray(data.results) ? data.results : [];
+
+        const movies = results.slice(0, 5).map((movie) => ({
+            id: movie.id,
+            title: movie.title || movie.original_title || "Untitled Movie",
+            rating: Number(movie.vote_average ?? 0).toFixed(1),
+            posterPath: movie.poster_path ?? null,
+            posterUrl: movie.poster_path
+                ? `https://image.tmdb.org/t/p/w342${movie.poster_path}`
+                : null,
+            backdropUrl: movie.backdrop_path
+                ? `https://image.tmdb.org/t/p/w780${movie.backdrop_path}`
+                : null,
+            releaseDate: movie.release_date ?? null,
+            overview: movie.overview ?? "",
+        }));
+
+        return Response.json({
+            success: true,
+            count: movies.length,
+            movies,
+        });
+    } catch (error) {
+        console.error("Trending movies error:", error);
+
+        return Response.json(
+            {
+                success: false,
+                message: "Unable to retrieve trending movies",
+            },
+            { status: 500 }
+        );
+    }
+};
+
 /* ========================================================================== 
    1. Backend API Routes
    ========================================================================== */
@@ -271,6 +363,17 @@ app.get("/api/lic-updates", async (c) => {
     }
 });
 
+app.get("/api/health", (c) => {
+    return c.json({
+        success: true,
+        message: "Vedika Networks Worker is running",
+    });
+});
+
+app.get("/api/movies/trending", async (c) => {
+    return getTrendingMovies(c.env);
+});
+
 /* ========================================================================== 
    2. Fallback Route: Pass everything else straight to your React App
    ========================================================================== */
@@ -286,7 +389,7 @@ app.all("*", async (c) => {
 
 // 🚀 CRITICAL FOR D1 BINDINGS: Export using standard ES module syntax explicitly 
 export default {
-    fetch: (request: Request, env: CloudflareBindings, ctx: ExecutionContext) => {
+    fetch: (request: Request, env: AppBindings, ctx: ExecutionContext) => {
         return app.fetch(request, env, ctx);
     }
 };

@@ -3,18 +3,21 @@
   "name": "vedika-networks-platform",
   "main": "api/index.ts",
   "compatibility_date": "2026-06-19",
+
   "assets": {
     "directory": "./frontend/dist",
     "binding": "ASSETS",
-    "not_found_handling": "single-page-application"
+    "not_found_handling": "single-page-application",
+    "run_worker_first": [
+      "/api/*"
+    ]
   },
-    // 2. Cloudflare D1 SQL Database Cluster Mapping
+
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "vedika_prod_db",
-      // 🚀 FIXED: Your real D1 Database UUID is now saved here
-      "database_id": "27a9346c-3bab-40f6-903d-96c27b99ba85" 
+      "database_id": "27a9346c-3bab-40f6-903d-96c27b99ba85"
     }
   ],
 

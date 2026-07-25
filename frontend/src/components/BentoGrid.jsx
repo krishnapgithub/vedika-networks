@@ -123,31 +123,10 @@ const MarketDataCard = () => {
     }, []);
 
     return (
-        <>
+<>
             <div className="card market-ticker-card">
-            <div className="card-image-box ticker-box movie-live-box">
-                <div className="movie-live-content">
-                    <div className="movie-live-header">
-                        <div>
-                            <span className="movie-live-kicker">Nearby Theater Movies</span>
-                            <strong>Live Shows</strong>
-                        </div>
-                        <span className="movie-live-badge">LIVE</span>
-                    </div>
-                    <div className="movie-show-list">
-                        <div>
-                            <span>Premiere Screen</span>
-                            <strong>6:30 pm</strong>
-                        </div>
-                        <div>
-                            <span>Family Show</span>
-                            <strong>8:45 pm</strong>
-                        </div>
-                    </div>
-                    <p>Sample live movie schedule. Local listings coming soon.</p>
-                </div>
-            </div>
-            </div>
+             <TrendingMoviesCard />
+</div>
 
             <div className="card market-info-summary-card">
                 <div className="card-body">
@@ -1255,3 +1234,93 @@ export default function BentoGrid() {
         </div>
     );
 }
+
+const TrendingMoviesCard = () => {
+    const [movies, setMovies] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState('');
+
+    useEffect(() => {
+        const controller = new AbortController();
+
+        async function fetchTrendingMovies() {
+            try {
+                setError('');
+
+                const response = await fetch('/api/movies/trending', {
+                    signal: controller.signal,
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(
+                        data.message || 'Unable to load trending movies'
+                    );
+                }
+
+                setMovies(
+                    Array.isArray(data.movies)
+                        ? data.movies.slice(0, 3)
+                        : []
+                );
+            } catch (error) {
+                if (error.name !== 'AbortError') {
+                    console.error(
+                        'Could not fetch trending movies:',
+                        error
+                    );
+                    setError('Trending movies are unavailable.');
+                }
+            } finally {
+                setIsLoading(false);
+            }
+        }
+
+        fetchTrendingMovies();
+
+        return () => controller.abort();
+    }, []);
+
+    return (
+        <div className="card-image-box ticker-box movie-live-box">
+            <div className="movie-live-content">
+                <div className="movie-live-header">
+                    <div>
+                        <span className="movie-live-kicker">
+                            TMDB
+                        </span>
+                        <strong>Trending Movies</strong>
+                    </div>
+
+                    <span className="movie-live-badge">
+                        HOT
+                    </span>
+                </div>
+
+                {isLoading && (
+                    <p>Loading trending movies...</p>
+                )}
+
+                {!isLoading && error && (
+                    <p>{error}</p>
+                )}
+
+                {!isLoading && !error && (
+                    <div className="movie-show-list">
+                        {movies.map((movie) => (
+                            <div key={movie.id}>
+                                <span>{movie.title}</span>
+                                <strong>
+                                    ⭐ {movie.rating}/10
+                                </strong>
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+                <p>Movie information provided by TMDB.</p>
+            </div>
+        </div>
+    );
+};
