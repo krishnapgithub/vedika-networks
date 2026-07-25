@@ -4,6 +4,10 @@
   "main": "api/index.ts",
   "compatibility_date": "2026-06-19",
 
+  "secrets": {
+    "required": ["TMDB_ACCESS_TOKEN"]
+  },
+
   "assets": {
     "directory": "./frontend/dist",
     "binding": "ASSETS",
