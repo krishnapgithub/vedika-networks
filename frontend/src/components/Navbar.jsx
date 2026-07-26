@@ -67,7 +67,12 @@ const sectionPopups = {
 
 export default function Navbar() {
     const [activePopup, setActivePopup] = useState(null);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const currentPopup = activePopup ? sectionPopups[activePopup] : null;
+    const openPopup = (popup) => {
+        setActivePopup(popup);
+        setIsMobileMenuOpen(false);
+    };
 
     return (
         <>
@@ -77,26 +82,50 @@ export default function Navbar() {
                 </div>
 
                 <div className="nav-links">
-                    <button type="button" className="nav-popup-button" onClick={() => setActivePopup("about")}>
+                    <button type="button" className="nav-popup-button" onClick={() => openPopup("about")}>
                         About Us
                     </button>
-                    <button type="button" className="nav-popup-button" onClick={() => setActivePopup("benefits")}>
+                    <button type="button" className="nav-popup-button" onClick={() => openPopup("benefits")}>
                         Benefits
                     </button>
-                    <button type="button" className="nav-popup-button" onClick={() => setActivePopup("features")}>
+                    <button type="button" className="nav-popup-button" onClick={() => openPopup("features")}>
                         Features
                     </button>
-                    <button type="button" className="nav-popup-button" onClick={() => setActivePopup("pricing")}>
+                    <button type="button" className="nav-popup-button" onClick={() => openPopup("pricing")}>
                         Pricing
                     </button>
-                    <button type="button" className="nav-popup-button" onClick={() => setActivePopup("gst")}>
+                    <button type="button" className="nav-popup-button" onClick={() => openPopup("gst")}>
                         GST Details
                     </button>
                 </div>
 
-                <button type="button" className="cta-btn" onClick={() => setActivePopup("start")}>
+                <button type="button" className="cta-btn" onClick={() => openPopup("start")}>
                     Get Started
                 </button>
+
+                <div className="mobile-nav">
+                    <button
+                        type="button"
+                        className="mobile-menu-button"
+                        aria-expanded={isMobileMenuOpen}
+                        onClick={() => setIsMobileMenuOpen((current) => !current)}
+                    >
+                        Menu
+                    </button>
+
+                    {isMobileMenuOpen && (
+                        <div className="mobile-menu-panel">
+                            <button type="button" onClick={() => openPopup("about")}>About Us</button>
+                            <button type="button" onClick={() => openPopup("benefits")}>Benefits</button>
+                            <button type="button" onClick={() => openPopup("features")}>Features</button>
+                            <button type="button" onClick={() => openPopup("pricing")}>Pricing</button>
+                            <button type="button" onClick={() => openPopup("gst")}>GST Details</button>
+                            <button type="button" className="mobile-menu-cta" onClick={() => openPopup("start")}>
+                                Get Started
+                            </button>
+                        </div>
+                    )}
+                </div>
             </nav>
 
             {activePopup === "gst" && (
