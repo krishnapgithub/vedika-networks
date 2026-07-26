@@ -1288,14 +1288,11 @@ const TrendingMoviesCard = () => {
                 <div className="movie-live-header">
                     <div>
                         <span className="movie-live-kicker">
-                            TMDB
+                            Latest Telugu Movies
                         </span>
-                        <strong>Trending Movies</strong>
+                        
                     </div>
 
-                    <span className="movie-live-badge">
-                        HOT
-                    </span>
                 </div>
 
                 {isLoading && (

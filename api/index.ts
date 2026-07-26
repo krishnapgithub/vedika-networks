@@ -191,16 +191,28 @@ const getTrendingMovies = async (env: AppBindings): Promise<Response> => {
         );
     }
 
+    const today = new Date().toISOString().slice(0, 10);
+
+const tmdbUrl = new URL(
+    "https://api.themoviedb.org/3/discover/movie"
+);
+
+tmdbUrl.searchParams.set("region", "IN");
+tmdbUrl.searchParams.set("with_original_language", "te");
+tmdbUrl.searchParams.set("with_release_type", "2|3");
+tmdbUrl.searchParams.set("release_date.lte", today);
+tmdbUrl.searchParams.set("sort_by", "release_date.desc");
+tmdbUrl.searchParams.set("include_adult", "false");
+tmdbUrl.searchParams.set("language", "te-IN");
+tmdbUrl.searchParams.set("page", "1");
+
     try {
-        const response = await fetch(
-            "https://api.themoviedb.org/3/trending/movie/day?language=en-US",
-            {
-                headers: {
-                    Authorization: `Bearer ${env.TMDB_ACCESS_TOKEN}`,
-                    Accept: "application/json",
-                },
-            }
-        );
+        const response = await fetch(tmdbUrl.toString(), {
+    headers: {
+        Authorization: `Bearer ${env.TMDB_ACCESS_TOKEN}`,
+        Accept: "application/json",
+    },
+});
 
         if (!response.ok) {
             const details = await response.text();
@@ -393,3 +405,5 @@ export default {
         return app.fetch(request, env, ctx);
     }
 };
+
+

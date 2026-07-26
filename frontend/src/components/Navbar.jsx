@@ -1,6 +1,48 @@
 import { useState } from "react";
 
 const sectionPopups = {
+    about: {
+        label: "About Us",
+        title: "About Vedika Networks",
+        intro: "Vedika Networks is a multi-service business ecosystem built to connect people, services, information, and digital operations through one trusted platform.",
+        sections: [
+            {
+                title: "Tours & Travels",
+                text: "We support curated travel planning, proposal-ready tour packages, itinerary preparation, and customer-friendly travel desk services.",
+            },
+            {
+                title: "Matrimonial Services",
+                text: "Through NichayaVedika, we provide a family-oriented Telugu matrimonial experience focused on genuine profiles, privacy, and respectful matchmaking.",
+            },
+            {
+                title: "Web Portal Creation",
+                text: "We design and build responsive web portals, business websites, service dashboards, proposal tools, and content-driven digital platforms.",
+            },
+            {
+                title: "Operational Control",
+                text: "We help organize business workflows, manuals, service processes, admin coordination, and operational support for growing teams.",
+            },
+            {
+                title: "Live Information Services",
+                text: "We bring useful public information feeds into one place, including market updates, policy headlines, movie information, and business-relevant updates.",
+            },
+            {
+                title: "Core Values",
+                items: [
+                    "Trust and transparency",
+                    "Customer-first service",
+                    "Practical digital solutions",
+                    "Reliable operations",
+                    "Respect for families, businesses, and communities",
+                ],
+            },
+            {
+                title: "Our Vision",
+                text: "Our vision is to build one platform that supports multiple ecosystems, from travel and relationships to digital success and business operations.",
+            },
+        ],
+        footer: "Vedika Networks - One Platform. Multiple Ecosystems.",
+    },
     benefits: {
         label: "Benefits",
         title: "Benefits",
@@ -35,6 +77,9 @@ export default function Navbar() {
                 </div>
 
                 <div className="nav-links">
+                    <button type="button" className="nav-popup-button" onClick={() => setActivePopup("about")}>
+                        About Us
+                    </button>
                     <button type="button" className="nav-popup-button" onClick={() => setActivePopup("benefits")}>
                         Benefits
                     </button>
@@ -135,7 +180,26 @@ export default function Navbar() {
                         </button>
                         <p className="section-modal-label">{currentPopup.label}</p>
                         <h2 id="section-modal-title">{currentPopup.title}</h2>
-                        <p>{currentPopup.text}</p>
+                        {currentPopup.intro && <p>{currentPopup.intro}</p>}
+                        {currentPopup.text && <p>{currentPopup.text}</p>}
+                        {currentPopup.sections && (
+                            <div className="section-modal-grid">
+                                {currentPopup.sections.map((section) => (
+                                    <article key={section.title} className="section-modal-card">
+                                        <h3>{section.title}</h3>
+                                        {section.text && <p>{section.text}</p>}
+                                        {section.items && (
+                                            <ul>
+                                                {section.items.map((item) => (
+                                                    <li key={item}>{item}</li>
+                                                ))}
+                                            </ul>
+                                        )}
+                                    </article>
+                                ))}
+                            </div>
+                        )}
+                        {currentPopup.footer && <p className="section-modal-footer">{currentPopup.footer}</p>}
                     </section>
                 </div>
             )}

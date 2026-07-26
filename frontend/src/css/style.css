@@ -106,6 +106,7 @@ body {
 	padding: 18px;
 	background: rgba(6, 20, 43, 0.48);
 	backdrop-filter: blur(10px);
+	overflow: hidden;
 }
 
 .gst-modal {
@@ -141,6 +142,11 @@ body {
 	font-weight: 850;
 	cursor: pointer;
 	box-shadow: 0 10px 30px rgba(6, 20, 43, 0.18);
+}
+
+.section-modal > .gst-modal-close {
+	top: 16px;
+	right: 16px;
 }
 
 .gst-modal-gstin {
@@ -217,7 +223,11 @@ body {
 }
 
 .section-modal {
-	width: min(90vw, 520px);
+	width: min(92vw, 1120px);
+	max-width: calc(100vw - 36px);
+	max-height: min(82vh, 720px);
+	overflow-y: auto;
+	overflow-x: hidden;
 	position: relative;
 	padding: 32px;
 	background: #ffffff;
@@ -244,11 +254,56 @@ body {
 	margin-bottom: 14px;
 }
 
-.section-modal p:last-child {
+.section-modal p {
 	color: #475569;
 	font-size: 1rem;
 	font-weight: 600;
 	line-height: 1.55;
+}
+
+.section-modal-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+	gap: 12px;
+	margin-top: 18px;
+}
+
+.section-modal-card {
+	min-width: 0;
+	border: 1px solid #dbe8f2;
+	border-radius: 14px;
+	background: #f8fbfd;
+	padding: 14px;
+}
+
+.section-modal-card h3 {
+	color: #06142b;
+	font-size: 1rem;
+	font-weight: 850;
+	letter-spacing: 0;
+	margin-bottom: 8px;
+}
+
+.section-modal-card p,
+.section-modal-card li {
+	color: #475569;
+	font-size: 0.88rem;
+	font-weight: 650;
+	line-height: 1.45;
+	overflow-wrap: anywhere;
+}
+
+.section-modal-card ul {
+	margin: 0;
+	padding-left: 18px;
+}
+
+.section-modal-footer {
+	margin-top: 16px;
+	border-top: 1px solid #dbe8f2;
+	padding-top: 14px;
+	color: #06142b !important;
+	font-weight: 850 !important;
 }
 
 
@@ -1577,6 +1632,17 @@ body {
 		padding: 9px 20px 12px;
 	}
 
+	.section-modal {
+		width: 100%;
+		max-height: calc(100vh - 24px);
+		padding: 24px 18px;
+		border-radius: 18px;
+	}
+
+	.section-modal-grid {
+		grid-template-columns: 1fr;
+	}
+
 	.main-container {
 		padding: 16px;
 		gap: 16px;
@@ -2309,4 +2375,47 @@ body {
 .ticker-hover-pause:hover {
 	animation-play-state: paused !important;
 	cursor: pointer;
+}
+
+/* Trending Telugu Movies sizing fix */
+.grid-right-zone > .market-ticker-card {
+    height: min(235px, calc((100vh - 212px) / 2)) !important;
+    min-height: 0;
+}
+
+.market-ticker-card .movie-live-box {
+    height: 100% !important;
+    min-height: 0;
+    overflow: hidden;
+    padding: 14px 18px !important;
+}
+
+.market-ticker-card .movie-live-content {
+    height: 100%;
+    justify-content: flex-start;
+}
+
+.market-ticker-card .movie-show-list span {
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+}
+
+.market-ticker-card .movie-live-content > p {
+    margin-top: auto;
+}
+
+@media (max-width: 600px) {
+    .grid-right-zone > .market-ticker-card {
+        height: auto !important;
+        min-height: 300px;
+    }
+
+    .market-ticker-card .movie-live-box {
+        min-height: 270px;
+    }
+
+    .market-ticker-card .movie-show-list {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
 }
