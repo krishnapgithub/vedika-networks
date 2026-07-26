@@ -220,13 +220,7 @@ body {
 .section-modal {
 	width: min(92vw, 760px);
 	max-height: calc(100vh - 36px);
-	overflow-y: auto;
-	overflow-x: hidden;
-}
-
-.section-modal .gst-modal-close {
-	top: 14px;
-	right: 14px;
+	overflow: visible;
 }
 
 .section-modal-hero strong {
@@ -251,6 +245,11 @@ body {
 	font-size: 0.94rem;
 	font-weight: 700;
 	line-height: 1.45;
+}
+
+.section-modal-details {
+	max-height: calc(100vh - 230px);
+	overflow-y: auto;
 }
 
 .section-modal-footer {
