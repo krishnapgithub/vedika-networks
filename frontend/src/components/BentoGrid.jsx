@@ -1350,17 +1350,30 @@ const TrendingMoviesCard = () => {
                 {!isLoading && !error && (
                     <div className="movie-show-list">
                         {movies.map((movie) => (
-                            <div key={movie.id}>
+                            <a
+                                key={movie.id}
+                                href={`https://www.themoviedb.org/movie/${movie.id}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="movie-link-item"
+                            >
                                 <span>{movie.title}</span>
                                 <strong>
                                     ⭐ {movie.rating}/10
                                 </strong>
-                            </div>
+                            </a>
                         ))}
                     </div>
                 )}
 
-                <p>Movie information provided by TMDB.</p>
+                <a
+                    href="https://www.themoviedb.org/movie?language=te-IN"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="movie-source-link"
+                >
+                    Movie information provided by TMDB.
+                </a>
             </div>
         </div>
     );

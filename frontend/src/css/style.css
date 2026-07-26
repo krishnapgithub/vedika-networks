@@ -1521,10 +1521,18 @@ body {
 	border-top: 1px solid #253149;
 }
 
-.movie-show-list div {
+.movie-link-item {
 	display: flex;
 	flex-direction: column;
 	gap: 2px;
+	text-decoration: none;
+	border-radius: 8px;
+	transition: background-color 0.18s ease, transform 0.18s ease;
+}
+
+.movie-link-item:hover {
+	background: rgba(255,255,255,0.07);
+	transform: translateY(-1px);
 }
 
 .movie-show-list span {
@@ -1538,12 +1546,19 @@ body {
 	font-size: 0.86rem;
 }
 
-.movie-live-content p {
+.movie-live-content p,
+.movie-source-link {
 	color: #94a3b8;
 	font-size: 0.68rem;
 	font-weight: 650;
 	line-height: 1.3;
 	margin: 0;
+	text-decoration: none;
+}
+
+.movie-source-link:hover {
+	color: #e8ff3b;
+	text-decoration: underline;
 }
 
 #ticker-fallback {
@@ -2201,9 +2216,9 @@ body {
 	border-radius: 0;
 	background: #ffffff;
 	min-height: 0;
-	flex: 1;
-	max-height: 126px;
-	overflow-y: auto;
+	height: 122px;
+	flex: 0 0 122px;
+	overflow-y: scroll;
 	scrollbar-width: thin;
 }
 
