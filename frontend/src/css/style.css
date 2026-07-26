@@ -144,11 +144,6 @@ body {
 	box-shadow: 0 10px 30px rgba(6, 20, 43, 0.18);
 }
 
-.section-modal > .gst-modal-close {
-	top: 16px;
-	right: 16px;
-}
-
 .gst-modal-gstin {
 	display: flex;
 	align-items: center;
@@ -223,87 +218,39 @@ body {
 }
 
 .section-modal {
-	width: min(92vw, 1120px);
-	max-width: calc(100vw - 36px);
-	max-height: min(82vh, 720px);
+	width: min(92vw, 760px);
+	max-height: calc(100vh - 36px);
 	overflow-y: auto;
 	overflow-x: hidden;
-	position: relative;
-	padding: 32px;
-	background: #ffffff;
-	border: 1px solid #cfe1ee;
-	border-radius: 20px;
-	box-shadow: 0 28px 90px rgba(6, 20, 43, 0.28);
 }
 
-.section-modal-label {
-	color: #60738a;
-	font-size: 0.76rem;
-	font-weight: 850;
-	letter-spacing: 0.08em;
-	text-transform: uppercase;
-	margin-bottom: 8px;
+.section-modal-hero strong {
+	font-size: clamp(1.15rem, 3vw, 1.65rem);
 }
 
-.section-modal h2 {
+.section-modal-details dd p {
+	margin: 0;
 	color: #06142b;
-	font-size: clamp(1.8rem, 5vw, 2.4rem);
-	line-height: 1;
-	font-weight: 850;
-	letter-spacing: 0;
-	margin-bottom: 14px;
-}
-
-.section-modal p {
-	color: #475569;
-	font-size: 1rem;
-	font-weight: 600;
-	line-height: 1.55;
-}
-
-.section-modal-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-	gap: 12px;
-	margin-top: 18px;
-}
-
-.section-modal-card {
-	min-width: 0;
-	border: 1px solid #dbe8f2;
-	border-radius: 14px;
-	background: #f8fbfd;
-	padding: 14px;
-}
-
-.section-modal-card h3 {
-	color: #06142b;
-	font-size: 1rem;
-	font-weight: 850;
-	letter-spacing: 0;
-	margin-bottom: 8px;
-}
-
-.section-modal-card p,
-.section-modal-card li {
-	color: #475569;
-	font-size: 0.88rem;
-	font-weight: 650;
+	font-size: 0.96rem;
+	font-weight: 700;
 	line-height: 1.45;
-	overflow-wrap: anywhere;
 }
 
-.section-modal-card ul {
+.section-modal-details dd ul {
 	margin: 0;
 	padding-left: 18px;
 }
 
+.section-modal-details dd li {
+	color: #06142b;
+	font-size: 0.94rem;
+	font-weight: 700;
+	line-height: 1.45;
+}
+
 .section-modal-footer {
-	margin-top: 16px;
-	border-top: 1px solid #dbe8f2;
-	padding-top: 14px;
-	color: #06142b !important;
-	font-weight: 850 !important;
+	color: #06142b;
+	font-weight: 800;
 }
 
 
@@ -1635,12 +1582,7 @@ body {
 	.section-modal {
 		width: 100%;
 		max-height: calc(100vh - 24px);
-		padding: 24px 18px;
 		border-radius: 18px;
-	}
-
-	.section-modal-grid {
-		grid-template-columns: 1fr;
 	}
 
 	.main-container {

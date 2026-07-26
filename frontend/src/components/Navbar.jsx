@@ -164,29 +164,46 @@ export default function Navbar() {
             {currentPopup && (
                 <div className="gst-modal-backdrop" role="presentation" onClick={() => setActivePopup(null)}>
                     <section
-                        className="section-modal"
+                        className="gst-modal section-modal"
                         role="dialog"
                         aria-modal="true"
                         aria-labelledby="section-modal-title"
                         onClick={(event) => event.stopPropagation()}
                     >
-                        <button
-                            type="button"
-                            className="gst-modal-close"
-                            aria-label={`Close ${currentPopup.label}`}
-                            onClick={() => setActivePopup(null)}
-                        >
-                            X
-                        </button>
-                        <p className="section-modal-label">{currentPopup.label}</p>
-                        <h2 id="section-modal-title">{currentPopup.title}</h2>
-                        {currentPopup.intro && <p>{currentPopup.intro}</p>}
-                        {currentPopup.text && <p>{currentPopup.text}</p>}
-                        {currentPopup.sections && (
-                            <div className="section-modal-grid">
-                                {currentPopup.sections.map((section) => (
-                                    <article key={section.title} className="section-modal-card">
-                                        <h3>{section.title}</h3>
+                        <div className="gst-modal-header">
+                            <span id="section-modal-title">{currentPopup.title}</span>
+                            <button
+                                type="button"
+                                className="gst-modal-close"
+                                aria-label={`Close ${currentPopup.label}`}
+                                onClick={() => setActivePopup(null)}
+                            >
+                                X
+                            </button>
+                        </div>
+
+                        <div className="gst-modal-gstin section-modal-hero">
+                            <span>{currentPopup.label}</span>
+                            <strong>{currentPopup.title}</strong>
+                        </div>
+
+                        <dl className="gst-modal-details section-modal-details">
+                            {currentPopup.intro && (
+                                <div>
+                                    <dt>Overview</dt>
+                                    <dd>{currentPopup.intro}</dd>
+                                </div>
+                            )}
+                            {currentPopup.text && (
+                                <div>
+                                    <dt>Information</dt>
+                                    <dd>{currentPopup.text}</dd>
+                                </div>
+                            )}
+                            {currentPopup.sections?.map((section) => (
+                                <div key={section.title}>
+                                    <dt>{section.title}</dt>
+                                    <dd>
                                         {section.text && <p>{section.text}</p>}
                                         {section.items && (
                                             <ul>
@@ -195,11 +212,12 @@ export default function Navbar() {
                                                 ))}
                                             </ul>
                                         )}
-                                    </article>
-                                ))}
-                            </div>
-                        )}
-                        {currentPopup.footer && <p className="section-modal-footer">{currentPopup.footer}</p>}
+                                    </dd>
+                                </div>
+                            ))}
+                        </dl>
+
+                        {currentPopup.footer && <p className="gst-modal-note section-modal-footer">{currentPopup.footer}</p>}
                     </section>
                 </div>
             )}
