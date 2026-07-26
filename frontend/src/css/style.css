@@ -224,6 +224,11 @@ body {
 	overflow-x: hidden;
 }
 
+.section-modal .gst-modal-close {
+	top: 14px;
+	right: 14px;
+}
+
 .section-modal-hero strong {
 	font-size: clamp(1.15rem, 3vw, 1.65rem);
 }
