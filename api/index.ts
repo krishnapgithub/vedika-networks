@@ -39,25 +39,41 @@ const getTagValue = (item: string, tag: string) => {
     return match ? stripHtml(match[1]) : "";
 };
 
+const getFreshFallbackItems = <T extends { publishedAt?: string }>(items: T[]) =>
+    items.map((item) => ({
+        ...item,
+        publishedAt: new Date().toISOString(),
+    }));
+
+const normalizePublishedAt = (value: string) => {
+    const parsedDate = value ? new Date(value) : null;
+
+    if (!parsedDate || Number.isNaN(parsedDate.getTime()) || parsedDate.getFullYear() < 2024) {
+        return new Date().toISOString();
+    }
+
+    return parsedDate.toISOString();
+};
+
 const fallbackPoliticalNews = [
     {
         category: "INDIA POLITICS",
         text: "India political headlines are being refreshed from public news feeds.",
-        link: "https://news.google.com/search?q=India%20politics&hl=en-IN&gl=IN&ceid=IN:en",
+        link: "https://news.google.com/search?q=India%20politics%20when%3A7d&hl=en-IN&gl=IN&ceid=IN:en",
         publishedAt: new Date().toISOString(),
         source: "Google News",
     },
     {
         category: "INDIA POLITICS",
         text: "Election, parliament, and policy updates are available through the live tracker.",
-        link: "https://news.google.com/search?q=India%20election%20parliament%20policy&hl=en-IN&gl=IN&ceid=IN:en",
+        link: "https://news.google.com/search?q=India%20election%20parliament%20policy%20when%3A7d&hl=en-IN&gl=IN&ceid=IN:en",
         publishedAt: new Date().toISOString(),
         source: "Public News",
     },
     {
         category: "INDIA POLITICS",
         text: "Regional government and public policy developments are monitored for quick reference.",
-        link: "https://news.google.com/search?q=India%20government%20state%20politics&hl=en-IN&gl=IN&ceid=IN:en",
+        link: "https://news.google.com/search?q=India%20government%20state%20politics%20when%3A7d&hl=en-IN&gl=IN&ceid=IN:en",
         publishedAt: new Date().toISOString(),
         source: "Public News",
     },
@@ -67,21 +83,21 @@ const fallbackMarketNews = [
     {
         category: "INDIA MARKETS",
         text: "Indian stock market headlines are being refreshed from public market news feeds.",
-        link: "https://news.google.com/search?q=Indian%20stock%20market%20NSE%20BSE&hl=en-IN&gl=IN&ceid=IN:en",
+        link: "https://news.google.com/search?q=Indian%20stock%20market%20NSE%20BSE%20when%3A7d&hl=en-IN&gl=IN&ceid=IN:en",
         publishedAt: new Date().toISOString(),
         source: "Google News",
     },
     {
         category: "INDIA MARKETS",
         text: "Nifty, Sensex, banking, IT, pharma, and metal sector updates are tracked for quick view.",
-        link: "https://news.google.com/search?q=Nifty%20Sensex%20sector%20updates&hl=en-IN&gl=IN&ceid=IN:en",
+        link: "https://news.google.com/search?q=Nifty%20Sensex%20sector%20updates%20when%3A7d&hl=en-IN&gl=IN&ceid=IN:en",
         publishedAt: new Date().toISOString(),
         source: "Market Tracker",
     },
     {
         category: "INDIA MARKETS",
         text: "Market movement, rupee updates, and business headlines are available through public trackers.",
-        link: "https://news.google.com/search?q=India%20market%20rupee%20business%20headlines&hl=en-IN&gl=IN&ceid=IN:en",
+        link: "https://news.google.com/search?q=India%20market%20rupee%20business%20headlines%20when%3A7d&hl=en-IN&gl=IN&ceid=IN:en",
         publishedAt: new Date().toISOString(),
         source: "Market Tracker",
     },
@@ -91,21 +107,21 @@ const fallbackLicUpdates = [
     {
         category: "LIC UPDATE",
         text: "LIC policy and plan headlines are being refreshed from public news feeds.",
-        link: "https://news.google.com/search?q=LIC%20India%20new%20policy%20plans&hl=en-IN&gl=IN&ceid=IN:en",
+        link: "https://news.google.com/search?q=LIC%20India%20new%20policy%20plans%20when%3A30d&hl=en-IN&gl=IN&ceid=IN:en",
         publishedAt: new Date().toISOString(),
         source: "Google News",
     },
     {
         category: "LIC UPDATE",
         text: "LIC insurance plans, policy servicing, and customer update headlines are tracked here.",
-        link: "https://news.google.com/search?q=LIC%20insurance%20plans%20policy%20servicing&hl=en-IN&gl=IN&ceid=IN:en",
+        link: "https://news.google.com/search?q=LIC%20insurance%20plans%20policy%20servicing%20when%3A30d&hl=en-IN&gl=IN&ceid=IN:en",
         publishedAt: new Date().toISOString(),
         source: "LIC Tracker",
     },
     {
         category: "LIC UPDATE",
         text: "Public updates on LIC products, financial results, and service announcements are monitored.",
-        link: "https://news.google.com/search?q=LIC%20products%20financial%20results%20service%20announcements&hl=en-IN&gl=IN&ceid=IN:en",
+        link: "https://news.google.com/search?q=LIC%20products%20financial%20results%20service%20announcements%20when%3A30d&hl=en-IN&gl=IN&ceid=IN:en",
         publishedAt: new Date().toISOString(),
         source: "LIC Tracker",
     },
@@ -215,7 +231,7 @@ const fetchGoogleNewsItems = async (feedUrl: string, category: string, limit = 5
                 category,
                 text: getTagValue(item, "title"),
                 link: getTagValue(item, "link"),
-                publishedAt: getTagValue(item, "pubDate"),
+                publishedAt: normalizePublishedAt(getTagValue(item, "pubDate")),
                 source: getTagValue(item, "source") || "Google News",
             };
         })
@@ -352,7 +368,7 @@ app.get("/api/market-data", async (c) => {
 });
 
 app.get("/api/political-news", async (c) => {
-    const feedUrl = "https://news.google.com/rss/search?q=India%20politics%20OR%20election%20OR%20parliament&hl=en-IN&gl=IN&ceid=IN:en";
+    const feedUrl = "https://news.google.com/rss/search?q=(India%20politics%20OR%20election%20OR%20parliament)%20when:7d&hl=en-IN&gl=IN&ceid=IN:en";
 
     try {
         const items = await fetchGoogleNewsItems(feedUrl, "INDIA POLITICS", 5);
@@ -360,7 +376,7 @@ app.get("/api/political-news", async (c) => {
         return c.json({
             success: true,
             updatedAt: new Date().toISOString(),
-            items: items.length ? items : fallbackPoliticalNews,
+            items: items.length ? items : getFreshFallbackItems(fallbackPoliticalNews),
         });
     } catch (error) {
         console.error("Political news feed failed:", error);
@@ -368,13 +384,13 @@ app.get("/api/political-news", async (c) => {
         return c.json({
             success: true,
             updatedAt: new Date().toISOString(),
-            items: fallbackPoliticalNews,
+            items: getFreshFallbackItems(fallbackPoliticalNews),
         });
     }
 });
 
 app.get("/api/market-news", async (c) => {
-    const feedUrl = "https://news.google.com/rss/search?q=Indian%20stock%20market%20OR%20NSE%20OR%20BSE%20OR%20Sensex%20OR%20Nifty&hl=en-IN&gl=IN&ceid=IN:en";
+    const feedUrl = "https://news.google.com/rss/search?q=(Indian%20stock%20market%20OR%20NSE%20OR%20BSE%20OR%20Sensex%20OR%20Nifty)%20when:7d&hl=en-IN&gl=IN&ceid=IN:en";
 
     try {
         const items = await fetchGoogleNewsItems(feedUrl, "INDIA MARKETS", 5);
@@ -382,7 +398,7 @@ app.get("/api/market-news", async (c) => {
         return c.json({
             success: true,
             updatedAt: new Date().toISOString(),
-            items: items.length ? items : fallbackMarketNews,
+            items: items.length ? items : getFreshFallbackItems(fallbackMarketNews),
         });
     } catch (error) {
         console.error("Market news feed failed:", error);
@@ -390,13 +406,13 @@ app.get("/api/market-news", async (c) => {
         return c.json({
             success: true,
             updatedAt: new Date().toISOString(),
-            items: fallbackMarketNews,
+            items: getFreshFallbackItems(fallbackMarketNews),
         });
     }
 });
 
 app.get("/api/lic-updates", async (c) => {
-    const feedUrl = "https://news.google.com/rss/search?q=LIC%20India%20new%20policy%20OR%20LIC%20new%20plan%20OR%20LIC%20press%20release&hl=en-IN&gl=IN&ceid=IN:en";
+    const feedUrl = "https://news.google.com/rss/search?q=(LIC%20India%20new%20policy%20OR%20LIC%20new%20plan%20OR%20LIC%20press%20release)%20when:30d&hl=en-IN&gl=IN&ceid=IN:en";
 
     try {
         const items = await fetchGoogleNewsItems(feedUrl, "LIC UPDATE", 5);
@@ -404,7 +420,7 @@ app.get("/api/lic-updates", async (c) => {
         return c.json({
             success: true,
             updatedAt: new Date().toISOString(),
-            items: items.length ? items : fallbackLicUpdates,
+            items: items.length ? items : getFreshFallbackItems(fallbackLicUpdates),
         });
     } catch (error) {
         console.error("LIC updates feed failed:", error);
@@ -412,7 +428,7 @@ app.get("/api/lic-updates", async (c) => {
         return c.json({
             success: true,
             updatedAt: new Date().toISOString(),
-            items: fallbackLicUpdates,
+            items: getFreshFallbackItems(fallbackLicUpdates),
         });
     }
 });
