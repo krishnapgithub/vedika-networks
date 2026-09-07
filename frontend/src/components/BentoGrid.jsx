@@ -1,6 +1,7 @@
 ﻿
 
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const marketSymbols = [
     { key: 'nifty50', label: 'NIFTY 50', exchange: 'NSE', symbol: '^NSEI' },
@@ -1081,6 +1082,7 @@ const ProposalTemplateModal = ({ isOpen, onClose }) => {
 
 
 export default function BentoGrid() {
+    const navigate = useNavigate();
     const [isTravelPlannerOpen, setIsTravelPlannerOpen] = useState(false);
     const [isProposalTemplateOpen, setIsProposalTemplateOpen] = useState(false);
     const [isOperationalContactOpen, setIsOperationalContactOpen] = useState(false);
@@ -1133,7 +1135,7 @@ export default function BentoGrid() {
                             {/* Card 1: Tours & Travels with Historical Narrative */}
                             {/* Card 1: Tours & Travels */}
                             {/* Card 1: Tours & Travels with PDF Integration */}
-                            <div
+                            {/*<div
                                 className="card travel-story-card clickable-card"
                                 role="button"
                                 tabIndex={0}
@@ -1144,24 +1146,37 @@ export default function BentoGrid() {
                                         setIsProposalTemplateOpen(true);
                                     }
                                 }}
-                            >
+                            >*/}
+                            <div
+    className="card travel-story-card clickable-card"
+    role="button"
+    tabIndex={0}
+    onClick={() => navigate('/prospera')}
+    onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            navigate('/prospera');
+        }
+    }}
+>
                                 <div className="card-image-box">
-                                    <img src="travel.png" alt="Tours and Travels" />
+                                    <img src="travel.png" alt="Prospera Holidays & Events" />
                                 </div>
                                 <div className="card-body">
-                                    <h3 className="card-heading">Tours & Travels</h3>
+                                    <h3 className="card-heading">Prospera Holidays & Events</h3>
                                     <p className="card-sub">
-                                        Trace a 2,500km ancient Indian legacy passing through historic deltas, heritage trails, and local culture.
+                                        {/*Trace a 2,500km ancient Indian legacy passing through historic deltas, heritage trails, and local culture.*/}
+                                        Prospera Holidays & Events is a travel and event management service that specializes in creating memorable experiences for individuals and groups. From curated holiday packages to seamless event planning, Prospera ensures every journey is filled with joy, comfort, and unforgettable moments.
                                     </p>
                                     <button
                                         type="button"
                                         className="travel-card-action travel-card-action-secondary"
                                         onClick={(event) => {
                                             event.stopPropagation();
-                                            setIsProposalTemplateOpen(true);
+                                            navigate('/prospera'); //setIsProposalTemplateOpen(true);
                                         }}
                                     >
-                                        Create Proposal PDF
+                                        Open Prospera Holidays & Events
                                     </button>
                                 </div>
                             </div>
