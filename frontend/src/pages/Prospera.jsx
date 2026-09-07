@@ -87,24 +87,28 @@ const categories = [
     path: "/prospera/holidays",
     icon: <HolidaysIcon />,
     description: "Curated getaways, planned with care.",
+    eyebrow: "India & international",
   },
   {
     name: "Events",
     path: "/prospera/events",
     icon: <EventsIcon />,
     description: "Memorable events, big or small.",
+    eyebrow: "Personal & corporate",
   },
   {
     name: "Gifting",
     path: "/prospera/gifting",
     icon: <GiftingIcon />,
     description: "Thoughtful gifts for every occasion.",
+    eyebrow: "Thoughtfully selected",
   },
   {
     name: "MICE",
     path: "/prospera/mice",
     icon: <MiceIcon />,
     description: "Meetings, Incentives, Conferences & Exhibitions.",
+    eyebrow: "Business experiences",
   },
 ];
 
@@ -340,7 +344,7 @@ export default function Prospera() {
 
             <span style={styles.menuSeparator}>|</span>
 
-            <MenuLink to="/prospera/about">
+            <MenuLink href="#prospera-about">
               About Us
             </MenuLink>
 
@@ -353,31 +357,9 @@ export default function Prospera() {
 
           {/* RIGHT BRANDING */}
 
-          <div
-            style={styles.headerRight}
-            className="prospera-branding"
-          >
-            <img
-              src="/prospera-caption.png"
-              alt="Prospera"
-              style={styles.captionImage}
-              className="prospera-caption"
-            />
-
-            <div
-              style={styles.subtitle}
-              className="prospera-subtitle"
-            >
-              Holidays &amp; Events
-            </div>
-
-            <div
-              style={styles.tagline}
-              className="prospera-tagline"
-            >
-              Memories. Moments. Made with Care.
-            </div>
-          </div>
+          <a href="#prospera-contact" className="prospera-header-cta">
+            Plan with us <span aria-hidden="true">→</span>
+          </a>
 
         </header>
 
@@ -385,12 +367,34 @@ export default function Prospera() {
             HERO
         ================================================= */}
 
-        <section style={styles.heroBanner}>
+        <section style={styles.heroBanner} className="prospera-hero-banner">
           <img
             src="/prospera-hero.png"
             alt="Prospera Holidays and Events"
             style={styles.heroBannerImage}
           />
+        </section>
+
+        <section className="prospera-intro" aria-labelledby="prospera-intro-title">
+          <div>
+            <span className="prospera-kicker">Thoughtful journeys. Memorable celebrations.</span>
+            <h1 id="prospera-intro-title">Every plan deserves a personal touch.</h1>
+            <p>
+              From relaxed family holidays to milestone events and corporate experiences,
+              Prospera brings every detail together with care.
+            </p>
+          </div>
+          <div className="prospera-intro-actions">
+            <a className="prospera-primary-button" href="#prospera-contact">Start planning</a>
+            <a
+              className="prospera-secondary-button"
+              href="https://wa.me/919963854127?text=Hello Prospera, I’m interested in planning a holiday or event. Please share more details."
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              WhatsApp us
+            </a>
+          </div>
         </section>
 
         {/* =================================================
@@ -400,7 +404,12 @@ export default function Prospera() {
         <section
           style={styles.grid}
           className="prospera-grid"
+          aria-labelledby="prospera-services-title"
         >
+          <div className="prospera-section-heading">
+            <span>What we do</span>
+            <h2 id="prospera-services-title">One trusted team for every occasion</h2>
+          </div>
           {categories.map((cat) => (
             <Link
               key={cat.name}
@@ -408,6 +417,7 @@ export default function Prospera() {
               style={styles.card}
               className="prospera-card"
             >
+              <span className="prospera-card-eyebrow">{cat.eyebrow}</span>
               <IconCircle>{cat.icon}</IconCircle>
 
               <h2 style={styles.cardTitle}>
@@ -417,8 +427,34 @@ export default function Prospera() {
               <p style={styles.cardDesc}>
                 {cat.description}
               </p>
+              <span className="prospera-card-link">Explore <span aria-hidden="true">→</span></span>
             </Link>
           ))}
+        </section>
+
+        <section id="prospera-about" className="prospera-about" aria-labelledby="prospera-about-title">
+          <div className="prospera-about-copy">
+            <span className="prospera-kicker">Why Prospera</span>
+            <h2 id="prospera-about-title">Planning that feels clear, warm and effortless.</h2>
+            <p>
+              We listen first, understand what matters to you, and coordinate the details
+              with dependable partners—so you can focus on enjoying the moment.
+            </p>
+          </div>
+          <div className="prospera-pillars">
+            <article>
+              <strong>Personal attention</strong>
+              <span>Recommendations shaped around your people, purpose and budget.</span>
+            </article>
+            <article>
+              <strong>End-to-end care</strong>
+              <span>One point of contact from the first idea through final coordination.</span>
+            </article>
+            <article>
+              <strong>Thoughtful choices</strong>
+              <span>Practical options presented clearly, with no unnecessary complexity.</span>
+            </article>
+          </div>
         </section>
 
         {/* =================================================
@@ -463,6 +499,10 @@ export default function Prospera() {
                 📍 Flat No. 502, Sai Durga Residency,
                 Karmanghat, Hyderabad - 97
               </div>
+
+              <div style={styles.contactLine}>
+                GST: 36AENPK9956J1ZN
+              </div>
             </div>
           </div>
 
@@ -474,7 +514,7 @@ export default function Prospera() {
           >
             <a
               href={`https://wa.me/919963854127?text=${encodeURIComponent(
-                "Dear Aravind, can you guide us on how we can plan for holidays and events?"
+                "Hello Prospera, I’m interested in planning a holiday or event. Please share more details."
               )}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -505,11 +545,230 @@ export default function Prospera() {
 
       <style>{`
 
+        .prospera-page {
+          color: #132052;
+          background: radial-gradient(circle at 8% 8%, rgba(245,197,24,.11), transparent 26rem), linear-gradient(180deg, #ffffff 0%, #f8faff 58%, #ffffff 100%) !important;
+        }
+
+        .prospera-header {
+          position: sticky;
+          top: 8px;
+          z-index: 50;
+          padding: 8px 14px !important;
+          border: 1px solid rgba(26,42,108,.08);
+          border-radius: 18px;
+          background: rgba(255,255,255,.92);
+          box-shadow: 0 12px 35px rgba(26,42,108,.08);
+          backdrop-filter: blur(14px);
+        }
+
+        .prospera-header-cta,
+        .prospera-primary-button,
+        .prospera-secondary-button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          min-height: 42px;
+          padding: 0 18px;
+          border-radius: 10px;
+          font-size: 12px;
+          font-weight: 700;
+          text-decoration: none;
+          transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+        }
+
+        .prospera-header-cta,
+        .prospera-primary-button {
+          color: #fff;
+          background: linear-gradient(135deg, #13245f, #2344a0);
+          box-shadow: 0 10px 22px rgba(26,42,108,.2);
+        }
+
+        .prospera-header-cta:hover,
+        .prospera-primary-button:hover,
+        .prospera-secondary-button:hover {
+          transform: translateY(-2px);
+        }
+
+        .prospera-intro {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 32px;
+          padding: 32px 38px;
+          border: 1px solid rgba(26,42,108,.09);
+          border-radius: 20px;
+          background: rgba(255,255,255,.92);
+          box-shadow: 0 16px 40px rgba(26,42,108,.08);
+          text-align: left;
+        }
+
+        .prospera-kicker,
+        .prospera-section-heading > span {
+          color: #b78300;
+          font-size: 10px;
+          font-weight: 800;
+          letter-spacing: .16em;
+          text-transform: uppercase;
+        }
+
+        .prospera-intro h1 {
+          max-width: 720px;
+          margin: 7px 0 8px;
+          color: #132052;
+          font-size: clamp(25px, 3vw, 44px);
+          line-height: 1.08;
+          letter-spacing: -.035em;
+        }
+
+        .prospera-intro p {
+          max-width: 760px;
+          color: #58627e;
+          font-size: 13px;
+          line-height: 1.65;
+        }
+
+        .prospera-intro-actions {
+          display: flex;
+          flex: 0 0 auto;
+          gap: 10px;
+        }
+
+        .prospera-secondary-button {
+          color: #13245f;
+          border: 1px solid rgba(26,42,108,.2);
+          background: #fff;
+        }
+
+        .prospera-grid {
+          position: relative;
+          padding-top: 82px;
+        }
+
+        .prospera-section-heading {
+          position: absolute;
+          top: 18px;
+          left: 0;
+          width: 100%;
+          text-align: center;
+        }
+
+        .prospera-section-heading h2 {
+          margin-top: 5px;
+          color: #132052;
+          font-size: 24px;
+          font-weight: 750;
+        }
+
+        .prospera-card {
+          position: relative;
+          min-height: 220px !important;
+          padding: 28px 22px 22px !important;
+          transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+        }
+
+        .prospera-card:hover {
+          transform: translateY(-6px);
+          border-color: rgba(245,197,24,.65) !important;
+          box-shadow: 0 20px 38px rgba(26,42,108,.13) !important;
+        }
+
+        .prospera-card-eyebrow {
+          margin-bottom: 15px;
+          color: #8c720e;
+          font-size: 8px;
+          font-weight: 750;
+          letter-spacing: .1em;
+          text-transform: uppercase;
+        }
+
+        .prospera-card-link {
+          margin-top: 14px;
+          color: #1a2a6c;
+          font-size: 10px;
+          font-weight: 800;
+        }
+
+        .prospera-about {
+          display: grid;
+          grid-template-columns: .85fr 1.35fr;
+          gap: 38px;
+          padding: 42px;
+          border-radius: 22px;
+          color: #fff;
+          background: linear-gradient(135deg, #101d50 0%, #1a2f78 68%, #284ca5 100%);
+          box-shadow: 0 20px 50px rgba(16,29,80,.2);
+          text-align: left;
+        }
+
+        .prospera-about h2 {
+          margin: 8px 0 12px;
+          color: #fff;
+          font-size: 28px;
+          font-weight: 750;
+          line-height: 1.2;
+        }
+
+        .prospera-about-copy p {
+          color: rgba(255,255,255,.72);
+          font-size: 12px;
+          line-height: 1.65;
+        }
+
+        .prospera-pillars {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 12px;
+        }
+
+        .prospera-pillars article {
+          padding: 20px;
+          border: 1px solid rgba(255,255,255,.13);
+          border-radius: 15px;
+          background: rgba(255,255,255,.07);
+        }
+
+        .prospera-pillars strong,
+        .prospera-pillars span { display: block; }
+
+        .prospera-pillars strong {
+          margin-bottom: 7px;
+          color: #ffdb52;
+          font-size: 11px;
+        }
+
+        .prospera-pillars span {
+          color: rgba(255,255,255,.72);
+          font-size: 9px;
+          line-height: 1.55;
+        }
+
         /* -----------------------------------------------
            TABLET / MOBILE
         ----------------------------------------------- */
 
         @media (max-width: 768px) {
+
+          .prospera-header-cta {
+            grid-area: branding;
+            justify-self: end;
+            min-height: 36px;
+            padding: 0 12px;
+            font-size: 10px;
+          }
+
+          .prospera-intro,
+          .prospera-about {
+            grid-template-columns: 1fr;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 20px;
+            padding: 24px 20px;
+          }
+
+          .prospera-intro-actions { flex-wrap: wrap; }
+          .prospera-pillars { grid-template-columns: 1fr; }
 
           .prospera-container {
             padding: 6px 10px 12px !important;
@@ -623,7 +882,7 @@ export default function Prospera() {
           }
 
           .prospera-card {
-            min-height: 120px !important;
+            min-height: 190px !important;
 
             padding:
               10px 8px !important;
@@ -703,13 +962,13 @@ export default function Prospera() {
 
           .prospera-grid {
             grid-template-columns:
-              repeat(2, minmax(0, 1fr)) !important;
+              1fr !important;
 
             gap: 7px !important;
           }
 
           .prospera-card {
-            min-height: 115px !important;
+            min-height: 175px !important;
 
             padding:
               9px 6px !important;
@@ -770,24 +1029,24 @@ const styles = {
   ======================================================= */
 
   header: {
-    width: "100%",
+  width: "100%",
 
-    height: "68px",
-    minHeight: "68px",
+  height: "78px",
+  minHeight: "78px",
 
-    display: "grid",
+  display: "grid",
 
-    gridTemplateColumns:
-      "100px minmax(0, 1fr) 210px",
+  gridTemplateColumns:
+    "80px minmax(0, 1fr) auto",
 
-    alignItems: "center",
+  alignItems: "center",
 
-    gap: "12px",
+  gap: "12px",
 
-    flexShrink: 0,
+  flexShrink: 0,
 
-    boxSizing: "border-box",
-  },
+  boxSizing: "border-box",
+},
 
   logoLink: {
     display: "inline-block",
@@ -928,7 +1187,7 @@ captionImage: {
 subtitle: {
   color: GOLD,
 
-  fontSize: "13px",     // more visible
+  fontSize: "10px",     // more visible
   fontWeight: 800,
 
   lineHeight: 1.2,
@@ -1066,7 +1325,7 @@ tagline: {
   cardTitle: {
     color: NAVY,
 
-    fontSize: "13px",
+    fontSize: "18px",
 
     fontWeight: 700,
 
@@ -1078,7 +1337,7 @@ tagline: {
   cardDesc: {
     color: "#555555",
 
-    fontSize: "9px",
+    fontSize: "11px",
 
     fontWeight: 400,
 
