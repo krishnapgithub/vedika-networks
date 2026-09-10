@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const services = [
@@ -11,60 +10,8 @@ const services = [
 ];
 
 export default function Events() {
-  useEffect(() => {
-    const previousTitle = document.title;
-    const existingFavicon = document.querySelector("link[rel~='icon']");
-    const previousFavicon = existingFavicon?.getAttribute("href");
-    let favicon = existingFavicon;
-    let faviconCreated = false;
-    if (!favicon) {
-      favicon = document.createElement("link");
-      favicon.rel = "icon";
-      document.head.appendChild(favicon);
-      faviconCreated = true;
-    }
-    const oldHtmlOverflow = document.documentElement.style.overflow;
-    const oldBodyOverflow = document.body.style.overflow;
-    const oldBodyPosition = document.body.style.position;
-    document.title = "Corporate Events | Prospera Holidays & Events";
-    favicon.href = "/prospera-logo-transparent.png";
-    document.documentElement.style.overflow = "auto";
-    document.documentElement.style.overflowY = "scroll";
-    document.body.style.overflow = "auto";
-    document.body.style.overflowY = "auto";
-    document.body.style.position = "static";
-    const fontLink = document.createElement("link");
-    fontLink.rel = "stylesheet";
-    fontLink.href = "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap";
-    document.head.appendChild(fontLink);
-    return () => {
-      document.title = previousTitle;
-      if (faviconCreated) {
-        favicon.remove();
-      } else if (favicon && previousFavicon) {
-        favicon.href = previousFavicon;
-      }
-      document.documentElement.style.overflow = oldHtmlOverflow;
-      document.body.style.overflow = oldBodyOverflow;
-      document.body.style.position = oldBodyPosition;
-      fontLink.remove();
-    };
-  }, []);
   return (
     <main className="pe">
-      <header className="pe-nav">
-        <Link className="pe-logo" to="/prospera" aria-label="Prospera home"><img src="/prospera-logo-transparent.png" alt="Prospera" /></Link>
-        <nav aria-label="Prospera menu">
-          <Link to="/prospera">Home</Link><span>|</span>
-          <Link to="/prospera/holidays">Holidays</Link><span>|</span>
-          <Link className="active" to="/prospera/events">Events</Link><span>|</span>
-          <Link to="/prospera/gifting">Gifting</Link><span>|</span>
-          <Link to="/prospera/mice">MICE</Link><span>|</span>
-          <Link to="/prospera#prospera-about">About Us</Link><span>|</span>
-          <Link to="/prospera#prospera-contact">Contact Us</Link>
-        </nav>
-        <a className="pe-nav-cta" href="#contact">Plan with us →</a>
-      </header>
       <section className="pe-hero">
         <div className="pe-hero-copy">
           <p className="pe-tag">PROSPERA EVENTS</p>
@@ -76,7 +23,7 @@ export default function Events() {
           <a className="pe-btn pe-btn-secondary" href="https://wa.me/919963854127?text=Hello%20Prospera%2C%20I%27m%20interested%20in%20planning%20an%20event.%20Please%20share%20more%20details." target="_blank" rel="noreferrer">WhatsApp us</a>
         </div>
       </section>
-      <figure className="pe-showcase"><img src="/prospera-events-showcase.png" alt="Prospera meetings, team building, gala dinners, gifting and exhibitions" /></figure>
+      <figure className="pe-showcase"><img src="/prospera-events-showcase.png" width="1536" height="1024" loading="eager" decoding="async" alt="Prospera meetings, team building, gala dinners, gifting and exhibitions" /></figure>
       <section className="pe-section" id="services">
         <div className="pe-heading"><div><p className="pe-tag">WHAT WE CREATE</p><h2>Everything your event needs, in one place.</h2></div><p>Strategy, venues, travel, production, hospitality and gifting—coordinated as one seamless experience.</p></div>
         <div className="pe-grid">{services.map(([title, copy], i) => <article key={title}><b>{String(i + 1).padStart(2, "0")}</b><h3>{title}</h3><p>{copy}</p></article>)}</div>
@@ -106,6 +53,15 @@ export default function Events() {
         .pe-nav nav a{position:relative;display:inline-flex;align-items:center;justify-content:center;padding:7px 10px;color:#132052;font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:600;line-height:1.2;white-space:nowrap}.pe-nav nav>span{margin:0 4px;color:#f5c518;font-size:15px;font-weight:500}.pe-nav nav a.active{color:#132052;font-weight:600}.pe-nav nav a::after{content:'';position:absolute;left:50%;bottom:-1px;width:0;height:3px;border-radius:999px;background:#f5c518;opacity:0;transform:translateX(-50%) translateY(5px);transition:width .28s ease,opacity .28s ease,transform .28s ease;box-shadow:0 3px 8px rgba(245,197,24,.55)}.pe-nav nav a:hover::after,.pe-nav nav a:focus-visible::after,.pe-nav nav a.active::after{width:72%;opacity:1;transform:translateX(-50%) translateY(0)}
         @media(max-width:768px){.pe-nav nav a{padding:6px 8px;font-size:11px}.pe-nav nav>span{margin:0 4px}}
         @media(max-width:480px){.pe-nav nav a{padding:5px 7px;font-size:10px}}
+        .pe-nav{grid-template-columns:80px minmax(0,1fr) auto}.pe-nav-placeholder{visibility:hidden;display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 18px;border-radius:10px;font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;white-space:nowrap}
+        @media(max-width:1000px){.pe-nav{grid-template-columns:68px minmax(0,1fr)}.pe-nav-placeholder{display:none}}
+        @media(max-width:768px){.pe-nav{width:auto;height:auto;min-height:auto;margin:6px 10px 0;padding:3px 10px 2px;display:grid;grid-template-columns:65px minmax(0,1fr);grid-template-areas:'logo empty' 'menu menu';align-items:center;gap:5px 8px}.pe-logo{grid-area:logo}.pe-logo img{width:48px;height:auto}.pe-nav nav{grid-area:menu;width:100%;justify-content:flex-start;overflow-x:auto;overflow-y:hidden;white-space:nowrap;padding:3px 1px 6px;scrollbar-width:none}.pe-nav nav::-webkit-scrollbar{display:none}}
+        @media(max-width:480px){.pe-nav{margin-inline:8px;padding-inline:8px;grid-template-columns:55px minmax(0,1fr)}.pe-logo img{width:42px}}
+        .pe-grid article{min-height:220px;padding:28px 22px 22px;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}.pe-grid article:hover{transform:translateY(-6px);border-color:rgba(245,197,24,.65);box-shadow:0 20px 38px rgba(26,42,108,.13)}.pe-grid article>b{font-size:10px;font-weight:800;letter-spacing:.1em}.pe-grid h3{margin:15px 0 6px;font-size:18px;font-weight:700;line-height:1.2}.pe-grid p{margin:0;color:#555;font-size:11px;font-weight:400;line-height:1.4}
+        @media(max-width:540px){.pe-grid article{min-height:auto;padding:24px 20px}.pe-grid h3{font-size:17px}}
+        .pe-contact{min-height:120px;margin:0 28px 18px;padding:22px 30px;gap:24px;border-radius:14px;background:linear-gradient(135deg,#f2f5ff 0%,#fff9e9 100%);box-shadow:0 4px 12px rgba(26,42,108,.05)}.pe-contact .pe-tag{margin-bottom:6px;font-size:9px}.pe-contact h2{font-size:24px;line-height:1.15}.pe-contact>div:first-child>p:last-child{margin:6px 0 0;color:#555;font-size:11px;line-height:1.4}.pe-contact>div:last-child{gap:4px}.pe-contact>div:last-child .pe-btn{min-height:38px;margin-bottom:3px;padding:0 15px;font-size:11px}.pe-contact>div:last-child>a:not(.pe-btn),.pe-contact>div:last-child>span{font-size:9px;line-height:1.35}
+        @media(max-width:850px){.pe-contact{margin-inline:16px;padding:24px;gap:18px}}
+        @media(max-width:540px){.pe-contact{min-height:0;margin:0 8px 12px;padding:22px 18px}.pe-contact h2{font-size:22px}.pe-contact>div:last-child>a:not(.pe-btn),.pe-contact>div:last-child>span{font-size:10px}}
       `}</style>
     </main>
   );

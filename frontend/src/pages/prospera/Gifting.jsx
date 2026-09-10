@@ -1,22 +1,21 @@
-import { Link } from "react-router-dom";
+import ProsperaServicePage from "./ProsperaServicePage";
 
 export default function Gifting() {
-  return (
-    <div style={styles.page}>
-      <Link to="/prospera" style={styles.back}>← Back to Prospera</Link>
-      <h1 style={styles.title}>Gifting</h1>
-      <p style={styles.text}>
-        Thoughtful gifts for every occasion — corporate gifting, festive
-        hampers, and personalised curations.
-      </p>
-      {/* Add gift catalogues or ordering flow here */}
-    </div>
-  );
+  return <ProsperaServicePage
+    kicker="PROSPERA GIFTING"
+    showServiceStrip
+    title="Thoughtful gifts that make every occasion memorable."
+    introduction="From festive hampers to corporate welcome kits and personal celebrations, we curate, customise and deliver gifts with meaning."
+    highlights={["Personal & corporate", "Customised selections", "Carefully presented"]}
+    services={[
+      ["Corporate Gifting", "Professional gifts for clients, employees, partners and important milestones."],
+      ["Festive Hampers", "Beautifully curated selections for Diwali, New Year and seasonal celebrations."],
+      ["Welcome Kits", "Useful, branded kits that help employees, guests and delegates feel valued."],
+      ["Event Gifting", "Memorable keepsakes and guest gifts coordinated with your event experience."],
+      ["Personal Occasions", "Warm selections for weddings, anniversaries, birthdays and family celebrations."],
+      ["Custom Branding", "Personalisation, packaging and presentation tailored to your identity and message."],
+    ]}
+    enquiry="Who would you like to make feel special?"
+    whatsappText="Hello Prospera, I'm interested in gifting services. Please share more details."
+  />;
 }
-
-const styles = {
-  page: { maxWidth: "900px", margin: "0 auto", padding: "48px 24px" },
-  back: { color: "#1a2a6c", fontWeight: 600, textDecoration: "none" },
-  title: { color: "#1a2a6c", fontSize: "2rem", marginTop: "16px" },
-  text: { color: "#444", fontSize: "1.05rem", lineHeight: 1.6 },
-};

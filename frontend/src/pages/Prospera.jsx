@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import DestinationHero from "./prospera/DestinationHero";
 
 const NAVY = "#1a2a6c";
 const GOLD = "#f5c518";
@@ -84,6 +85,7 @@ const MiceIcon = () => (
 const categories = [
   {
     name: "Holidays",
+    image: "/holiday-international.jpg",
     path: "/prospera/holidays",
     icon: <HolidaysIcon />,
     description: "Curated getaways, planned with care.",
@@ -91,6 +93,7 @@ const categories = [
   },
   {
     name: "Events",
+    image: "/home-events.jpg",
     path: "/prospera/events",
     icon: <EventsIcon />,
     description: "Memorable events, big or small.",
@@ -98,6 +101,7 @@ const categories = [
   },
   {
     name: "Gifting",
+    image: "/home-gifting.jpg",
     path: "/prospera/gifting",
     icon: <GiftingIcon />,
     description: "Thoughtful gifts for every occasion.",
@@ -105,6 +109,7 @@ const categories = [
   },
   {
     name: "MICE",
+    image: "/home-mice.jpg",
     path: "/prospera/mice",
     icon: <MiceIcon />,
     description: "Meetings, Incentives, Conferences & Exhibitions.",
@@ -163,10 +168,10 @@ const MenuLink = ({ to, href, children }) => {
 ========================================================= */
 
 export default function Prospera() {
-  useEffect(() => {
+  useLayoutEffect(() => {
     /* SAVE PARENT SITE SETTINGS */
 
-    const previousTitle = document.title;
+    // The shared Prospera layout owns the document title.
 
     const existingFavicon =
       document.querySelector("link[rel~='icon']");
@@ -216,7 +221,7 @@ export default function Prospera() {
 
     /* PROSPERA TITLE / FAVICON */
 
-    document.title = "Prospera Holidays & Events";
+
     favicon.href = "/prospera-logo-transparent.png";
 
     /* ENABLE NORMAL SCROLL */
@@ -225,27 +230,22 @@ export default function Prospera() {
     document.documentElement.style.overflow = "auto";
     document.documentElement.style.overflowX = "hidden";
     document.documentElement.style.overflowY = "auto";
-    document.documentElement.style.scrollBehavior = "smooth";
+    document.documentElement.style.scrollBehavior = "auto";
 
     document.body.style.height = "auto";
     document.body.style.overflow = "auto";
     document.body.style.overflowX = "hidden";
     document.body.style.overflowY = "auto";
     document.body.style.position = "static";
-
-    /* POPPINS */
-
-    const fontLink = document.createElement("link");
-    fontLink.rel = "stylesheet";
-    fontLink.href =
-      "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap";
-
-    document.head.appendChild(fontLink);
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 
     /* RESTORE PARENT SITE */
 
     return () => {
-      document.title = previousTitle;
+      if (window.location.pathname.startsWith("/prospera")) {
+        return;
+      }
+
 
       if (faviconCreated) {
         favicon.remove();
@@ -283,9 +283,6 @@ export default function Prospera() {
       document.body.style.position =
         oldBodyPosition;
 
-      if (fontLink.parentNode) {
-        fontLink.parentNode.removeChild(fontLink);
-      }
     };
   }, []);
 
@@ -297,7 +294,7 @@ export default function Prospera() {
             HEADER
         ================================================= */}
 
-        <header style={styles.header} className="prospera-header">
+        {false && <header style={styles.header} className="prospera-header">
 
           {/* LEFT LOGO */}
 
@@ -320,6 +317,12 @@ export default function Prospera() {
             style={styles.headerMenu}
             className="prospera-menu"
           >
+            <MenuLink to="/prospera">
+              Home
+            </MenuLink>
+
+            <span style={styles.menuSeparator}>|</span>
+
             <MenuLink to="/prospera/holidays">
               Holidays
             </MenuLink>
@@ -361,41 +364,19 @@ export default function Prospera() {
             Plan with us <span aria-hidden="true">→</span>
           </a>
 
-        </header>
+        </header>}
 
         {/* =================================================
             HERO
         ================================================= */}
 
-        <section style={styles.heroBanner} className="prospera-hero-banner">
-          <img
-            src="/prospera-hero.png"
-            alt="Prospera Holidays and Events"
-            style={styles.heroBannerImage}
-          />
-        </section>
-
-        <section className="prospera-intro" aria-labelledby="prospera-intro-title">
-          <div>
-            <span className="prospera-kicker">Thoughtful journeys. Memorable celebrations.</span>
-            <h1 id="prospera-intro-title">Every plan deserves a personal touch.</h1>
-            <p>
-              From relaxed family holidays to milestone events and corporate experiences,
-              Prospera brings every detail together with care.
-            </p>
-          </div>
-          <div className="prospera-intro-actions">
-            <a className="prospera-primary-button" href="#prospera-contact">Start planning</a>
-            <a
-              className="prospera-secondary-button"
-              href="https://wa.me/919963854127?text=Hello Prospera, I’m interested in planning a holiday or event. Please share more details."
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              WhatsApp us
-            </a>
-          </div>
-        </section>
+        <DestinationHero
+          kicker="Thoughtful journeys. Memorable celebrations."
+          heading="Every plan deserves a personal touch."
+          introduction="From relaxed family holidays to milestone events and corporate experiences, Prospera brings every detail together with care."
+          planningHref="#prospera-contact"
+          whatsappHref="https://wa.me/919963854127?text=Hello%20Prospera%2C%20I%27m%20interested%20in%20planning%20a%20holiday%20or%20event.%20Please%20share%20more%20details."
+        />
 
         {/* =================================================
             CARDS
@@ -415,19 +396,19 @@ export default function Prospera() {
               key={cat.name}
               to={cat.path}
               style={styles.card}
-              className="prospera-card"
+              className="prospera-card prospera-photo-card"
             >
+              <div className="prospera-card-photo"><img src={cat.image} alt="" width="1536" height="1024" loading="lazy" decoding="async" /><h2 className="prospera-card-photo-title">{cat.name}</h2></div>
+              <div className="prospera-card-copy">
               <span className="prospera-card-eyebrow">{cat.eyebrow}</span>
-              <IconCircle>{cat.icon}</IconCircle>
 
-              <h2 style={styles.cardTitle}>
-                {cat.name}
-              </h2>
+              
 
               <p style={styles.cardDesc}>
                 {cat.description}
               </p>
               <span className="prospera-card-link">Explore <span aria-hidden="true">→</span></span>
+              </div>
             </Link>
           ))}
         </section>
@@ -502,6 +483,9 @@ export default function Prospera() {
 
               <div style={styles.contactLine}>
                 GST: 36AENPK9956J1ZN
+              </div>
+              <div style={styles.contactLine}>
+                <strong>Legal Proprietor:</strong> Aravind Babu K
               </div>
             </div>
           </div>
@@ -979,6 +963,26 @@ export default function Prospera() {
           }
         }
 
+        .prospera-card.prospera-photo-card{padding:0!important;min-height:0!important;justify-content:flex-start!important;align-items:stretch!important;text-align:left!important;border:1px solid #e5e8e9!important;border-radius:18px!important;background:#fff!important}.prospera-card-photo{width:100%;aspect-ratio:3/2;overflow:hidden;background:#f4f3ec}.prospera-card-photo img{display:block;width:100%!important;height:100%!important;object-fit:cover;transition:transform .5s ease}.prospera-photo-card:hover .prospera-card-photo img{transform:scale(1.025)}.prospera-card-copy{display:flex;flex-direction:column;flex:1;padding:22px;border-top:2px solid #e9ce84}.prospera-card-copy .prospera-card-eyebrow{margin-bottom:10px;font-weight:600}.prospera-card-copy h2{font-size:20px!important;font-weight:600!important;margin-bottom:8px!important}.prospera-card-copy p{font-size:12px!important;line-height:1.6!important;color:#657080!important;margin-bottom:18px!important}.prospera-card-copy .prospera-card-link{margin-top:auto;font-weight:600}@media(prefers-reduced-motion:reduce){.prospera-card-photo img{transition:none}.prospera-photo-card:hover .prospera-card-photo img{transform:none}}
+        .prospera-card-photo{position:relative}.prospera-card-photo::after{content:"";position:absolute;inset:35% 0 0;background:linear-gradient(180deg,transparent,rgba(10,24,55,.78));pointer-events:none}.prospera-card-photo .prospera-card-photo-title{position:absolute;z-index:1;left:22px;right:22px;bottom:19px;margin:0;color:#fff;font-size:24px;font-weight:600;line-height:1.15;letter-spacing:-.025em;text-shadow:0 2px 8px rgba(0,0,0,.2)}
+        .prospera-hero-banner{position:relative;isolation:isolate;padding:7px;box-sizing:border-box;border:1px solid rgba(255,255,255,.88);border-radius:26px!important;background:linear-gradient(135deg,rgba(255,255,255,.82),rgba(231,241,249,.42) 55%,rgba(255,247,218,.52));box-shadow:0 18px 45px rgba(24,49,86,.12),inset 0 1px 0 #fff!important;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}.prospera-hero-banner img{position:relative;display:block;width:100%;height:auto;border-radius:19px;filter:saturate(.91) contrast(.98)}.prospera-hero-banner::after{content:'';position:absolute;inset:7px;border-radius:19px;pointer-events:none;background:linear-gradient(155deg,rgba(255,255,255,.19),transparent 38%,transparent 78%,rgba(255,255,255,.06));box-shadow:inset 0 1px 0 rgba(255,255,255,.8),inset 0 0 0 1px rgba(255,255,255,.22)}@media(max-width:600px){.prospera-hero-banner{padding:4px;border-radius:18px!important}.prospera-hero-banner img{border-radius:13px}.prospera-hero-banner::after{inset:4px;border-radius:13px}}
+        .prospera-page .dh-label h2 { font-size: clamp(16px, 1.5vw, 22px); }
+        @media (min-width: 1001px) {
+          .prospera-page .dh-with-copy .dh-panel { height: 386px; }
+        }
+        @media (max-width: 1000px) and (min-width: 601px) {
+          .prospera-page .dh-with-copy .dh-panel { height: 460px; }
+        }
+        @media (max-width: 600px) {
+          .prospera-page .dh-with-copy .dh-panel { height: 540px; }
+        }
+        @media (max-width: 600px) {
+          .prospera-page .dh-with-copy .dh-panel { height: 420px; }
+          .prospera-page .dh-overlay { top: 42px; padding: 14px; gap: 10px; }
+          .prospera-page .dh-overlay-copy h1 { font-size: 22px; margin: 6px 0 8px; }
+          .prospera-page .dh-overlay-copy p { font-size: 10px; line-height: 1.5; padding: 8px 10px; }
+        }
+        .prospera-destination-hero{width:100%;padding:6px;box-sizing:border-box;border:1px solid rgba(255,255,255,.9);border-radius:24px;background:linear-gradient(135deg,#ffffffcc,#eef4f8aa,#fff8e7cc);box-shadow:0 16px 40px rgba(24,49,86,.12);overflow-x:auto;scrollbar-width:thin}.prospera-destination-panels{position:relative;min-width:750px;aspect-ratio:3/1;border-radius:18px;overflow:hidden}.prospera-destination-panels>img{display:block;width:100%!important;height:100%!important;object-fit:cover}.prospera-destination-labels{position:absolute;inset:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}.prospera-destination-panel{display:flex;align-items:flex-end;padding:clamp(8px,1.2vw,20px);background:linear-gradient(180deg,transparent 50%,rgba(9,26,44,.35));border-right:1px solid rgba(255,255,255,.3)}.prospera-destination-panel:last-child{border-right:0}.prospera-destination-glass{width:100%;padding:14px 12px;box-sizing:border-box;background:rgba(15,34,48,.24);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.36);border-radius:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,.14);color:#fff}.prospera-destination-glass h2{margin:0 0 5px;font-size:clamp(19px,2vw,30px);font-weight:500;letter-spacing:-.025em;line-height:1.1}.prospera-destination-glass p{margin:0;font-size:clamp(8px,.8vw,12px);line-height:1.5;color:#fff5dc}@media(max-width:600px){.prospera-destination-hero{padding:4px;border-radius:18px}.prospera-destination-glass{padding:10px 8px;border-radius:9px}}
       `}</style>
     </div>
   );

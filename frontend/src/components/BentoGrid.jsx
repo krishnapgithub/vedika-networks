@@ -1,4 +1,4 @@
-﻿
+
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -1160,13 +1160,13 @@ export default function BentoGrid() {
     }}
 >
                                 <div className="card-image-box">
-                                    <img src="travel.png" alt="Prospera Holidays & Events" />
+                                    <span className="ecosystem-brand-image"><img src="/prospera-destinations.jpg" alt="Prospera holidays across India, Thailand, Malaysia, Dubai and Europe" loading="lazy" /><span className="ecosystem-logo-badge"><img src="/prospera-logo-transparent.png" alt="Prospera logo" /></span></span>
                                 </div>
                                 <div className="card-body">
                                     <h3 className="card-heading">Prospera Holidays & Events</h3>
                                     <p className="card-sub">
                                         {/*Trace a 2,500km ancient Indian legacy passing through historic deltas, heritage trails, and local culture.*/}
-                                        Prospera Holidays & Events is a travel and event management service that specializes in creating memorable experiences for individuals and groups. From curated holiday packages to seamless event planning, Prospera ensures every journey is filled with joy, comfort, and unforgettable moments.
+                                        Personalized holidays, memorable events, thoughtful gifting and MICE experiences — planned with care.
                                     </p>
                                     <button
                                         type="button"
@@ -1187,12 +1187,12 @@ export default function BentoGrid() {
                             {/* Card 2: Matrimonial Services */}
                             <div className="card">
                                 <a href="https://nichayavedika.com" target="_blank" rel="noopener noreferrer" className="card-image-box">
-                                    <img src="matrimony.png" alt="Matrimonial Services" />
+                                    <span className="ecosystem-brand-image"><img src="/nichaya-vedika-hero.webp" alt="Nichaya Vedika — Telugu matrimonial services" loading="lazy" style={{ objectPosition: "70% 40%" }} /><span className="ecosystem-logo-badge"><img src="/nichaya-vedika-logo.png" alt="Nichaya Vedika logo" /></span></span>
                                 </a>
                                 <div className="card-body">
-                                    <h3 className="card-heading">Matrimonial Services</h3>
+                                    <h3 className="card-heading">Nichaya Vedika</h3>
                                     <p className="card-sub">
-                                        Browse matching profiles within secure directory panels with smart filters.
+                                        Telugu matrimonial services. Discover meaningful connections with profiles and smart search filters.
                                     </p>
                                 </div>
                             </div>
