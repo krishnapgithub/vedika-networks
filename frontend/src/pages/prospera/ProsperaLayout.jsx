@@ -178,7 +178,21 @@ export default function ProsperaLayout() {
           <a href="mailto:aravind.prospera@gmail.com"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 6 9 7 9-7" /></svg>aravind.prospera@gmail.com</a>
           <a href="tel:+919963854127"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2" /><path d="M10 5h4M11 h2" /></svg>+91 99638 54127</a>
         </span>
-        <span>Maintained &amp; developed by Vedika Networks.</span>
+       <span>
+  Maintained & developed by{" "}
+  <a
+    href="https://vedikanetworks.com/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="vedika-network-link"
+    onClick={(e) => {
+      e.stopPropagation();
+      window.open("https://vedikanetworks.com/", "_blank", "noopener,noreferrer");
+    }}
+  >
+    Vedika Networks
+  </a>.
+</span>
       </footer>
       <style>{`
         .prospera-top-strip{position:fixed;inset:0 0 auto;height:20px;z-index:1001;display:flex;align-items:center;justify-content:space-around;gap:12px;padding:0 12px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;background:linear-gradient(115deg,#0046ad,#002f8d 68%,#002475);border-bottom:1px solid #ffe400;box-sizing:border-box;color:#fff}.prospera-top-strip::-webkit-scrollbar{display:none}.prospera-top-strip-item{display:inline-flex;align-items:center;justify-content:center;gap:4px;flex:0 0 auto;white-space:nowrap;font-size:10px;font-weight:400;line-height:19px}.prospera-top-strip-item svg{display:block;width:16px;height:16px;flex:0 0 16px;fill:none;stroke:#ffe400;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
