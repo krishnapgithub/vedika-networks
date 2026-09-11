@@ -167,8 +167,8 @@ export default function ProsperaLayout() {
           ))}
         </nav>
       </header>
-      <section className="prospera-card-strip" aria-label={pathname.replace(/\/$/, "") === "/prospera/contact" ? "Contact details" : "What we offer"}>
-        <span className="prospera-card-strip-label">{pathname.replace(/\/$/, "") === "/prospera/contact" ? "GET IN TOUCH" : "WHAT WE OFFER"}</span>
+      <section className="prospera-card-strip" data-page={pathname.split("/").filter(Boolean)[1] || "home"} aria-label={pathname.replace(/\/$/, "") === "/prospera/contact" ? "Contact details" : "What Prospera offers"}>
+        <span className="prospera-card-strip-label">{pathname.replace(/\/$/, "") === "/prospera/contact" ? "GET IN TOUCH" : "What Prospera Offers:"}</span>
         <ul>{cardTitles.map(title => <li key={title}>{title}</li>)}</ul>
       </section>
       <Outlet />
@@ -217,8 +217,8 @@ export default function ProsperaLayout() {
           .prospera-top-strip-item{justify-content:flex-start;gap:7px;min-width:0;padding:7px 8px;border:1px solid #ffffff26;border-radius:8px;background:#ffffff0c;font-size:10px;line-height:1.4}
           .prospera-top-strip-item svg{width:17px;height:17px;flex:0 0 17px}
           .prospera-top-strip-item + .prospera-top-strip-item::before{display:none}
-          .prospera-card-strip{gap:8px;padding:10px 12px 12px;background:#fffaf0;border-bottom:1px solid #eee4c7}
-          .prospera-card-strip-label{font-size:8px;letter-spacing:.12em;color:#927020}
+          .prospera-card-strip{gap:8px;padding:10px 12px 12px;background:linear-gradient(110deg,#fff8db,#fffdf3);border-bottom:1px solid #efd67b}
+          .prospera-card-strip-label{font-size:8px;letter-spacing:.12em;color:#976000;font-weight:700}
           .prospera-card-strip ul{gap:6px}
           .prospera-card-strip li{padding:5px 10px;border:1px solid #e9dfc6;border-radius:5%;background:#fff;color:#24365e;font-size:10px;line-height:1.4}
         }
@@ -238,16 +238,16 @@ export default function ProsperaLayout() {
           .prospera-top-strip-item{padding:2px 0;border:0;border-radius:0;background:transparent;cursor:default}
           .prospera-card-strip ul{gap:8px 18px}
           .prospera-card-strip li{padding:0;border:0;border-radius:0;background:transparent;gap:7px;align-items:baseline;cursor:default}
-          .prospera-card-strip li::before,.prospera-card-strip li+li::before{content:'';display:block;width:4px;height:4px;margin:0;border-radius:50%;background:#c5a553;flex:0 0 4px;align-self:center}
+          .prospera-card-strip li::before,.prospera-card-strip li+li::before{content:'';display:block;width:4px;height:4px;margin:0;border-radius:50%;background:#d6a000;flex:0 0 4px;align-self:center}
         }
         @media(max-width:768px){
-          .prospera-top-strip{display:flex;flex-wrap:wrap;justify-content:center;gap:3px 0;padding:7px 12px;background:#f5f7fa;color:#687386;border-bottom:1px solid #e7ebf0}
-          .prospera-top-strip-item{display:inline-flex;flex:0 1 auto;gap:0;padding:0;font-size:9px;font-weight:400;line-height:1.5;justify-content:center}
+          .prospera-top-strip{display:flex;flex-wrap:wrap;justify-content:center;gap:3px 0;padding:7px 12px;background:linear-gradient(110deg,#edf5ff,#f8fbff);color:#244b91;border-bottom:1px solid #d5e4fb}
+          .prospera-top-strip-item{display:inline-flex;flex:0 1 auto;gap:0;padding:0;font-size:9px;font-weight:500;line-height:1.5;justify-content:center}
           .prospera-top-strip-item svg{display:none}
-          .prospera-top-strip-item + .prospera-top-strip-item::before{content:'';display:block;width:3px;height:3px;margin:0 8px;border-radius:50%;background:#b9a26b;flex:0 0 3px}
+          .prospera-top-strip-item + .prospera-top-strip-item::before{content:'';display:block;width:3px;height:3px;margin:0 8px;border-radius:50%;background:#d6a000;flex:0 0 3px}
         }
         @media(max-width:768px){
-          .prospera-card-strip li{font-family:inherit;font-size:9px;font-weight:400;line-height:1.5;color:#687386}
+          .prospera-card-strip li{font-family:inherit;font-size:9px;font-weight:500;line-height:1.5;color:#244b91}
         }
         @media(max-width:768px){
           .prospera-shell-header,.prospera-card-strip{position:relative;inset:auto}
@@ -277,6 +277,45 @@ export default function ProsperaLayout() {
         @media(max-width:768px){
           .prospera-top-strip,.prospera-card-strip{z-index:1}
           .prospera-shell-header{z-index:1000;background:#fff}
+        }
+        @media(max-width:768px){
+          .prospera-shell-header{height:auto;min-height:104px;padding-top:7px;padding-bottom:5px;box-shadow:0 4px 16px rgba(20,75,180,.10)}
+          .prospera-shell-logo img{width:54px;filter:saturate(1.3) contrast(1.08)}
+          .prospera-brand-title{font-size:10px;color:#ad7600}
+          .prospera-brand-title::before,.prospera-brand-title::after{background:#f5be00}
+          .prospera-brand-tagline{font-size:12px;color:#064de0;font-weight:700}
+          .prospera-shell-header nav{flex-wrap:wrap;row-gap:5px;overflow:visible}
+          .prospera-shell-item a{color:#0646bd;font-size:10px;font-weight:700;padding:6px 4px;border-radius:5px}
+          .prospera-shell-item a.active{color:#07358a;background:#fff3bc}
+          .prospera-shell-item a::after{background:#edb500;box-shadow:0 2px 6px rgba(245,197,24,.35)}
+          .prospera-shell-item i{color:#d99b00}
+        }
+        @media(max-width:768px){
+          .prospera-top-strip{position:fixed;inset:0 0 auto;z-index:1001;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px 10px;padding:7px 10px;background:linear-gradient(110deg,#0046ad,#002f8d);color:#fff;border-bottom:2px solid #f5c518}
+          .prospera-top-strip-item{justify-content:flex-start;align-items:center;min-width:0;gap:5px;font-size:9px;font-weight:500;line-height:1.35;white-space:normal}
+          .prospera-top-strip-item svg{display:block;width:14px;height:14px;flex:0 0 14px;stroke:#ffe400}
+          .prospera-top-strip-item + .prospera-top-strip-item::before{display:none}
+          .prospera-shell-header{inset:var(--pinned-0,70px) 0 auto}
+          .prospera-shell{padding-top:calc(var(--pinned-0,70px) + var(--pinned-1,104px))}
+        }
+        @media(max-width:768px){
+          .prospera-card-strip[data-page="home"]{flex-direction:row;align-items:center;gap:8px;padding:9px 10px}
+          .prospera-card-strip[data-page="home"] .prospera-card-strip-label{white-space:nowrap;font-size:7px;letter-spacing:.06em}
+          .prospera-card-strip[data-page="home"] ul{width:auto;flex:0 1 auto;flex-wrap:nowrap;justify-content:flex-start;gap:10px}
+          .prospera-card-strip[data-page="home"] li{white-space:nowrap;gap:4px;font-size:9px}
+          .prospera-card-strip[data-page="holidays"] ul{display:grid;grid-template-columns:repeat(3,max-content);justify-content:start;gap:6px 12px}
+          .prospera-card-strip[data-page="holidays"] li{min-width:0;gap:4px;font-size:9px;line-height:1.4;align-items:center}
+        }
+        @media(max-width:768px){
+          .prospera-card-strip[data-page="home"] .prospera-card-strip-label,.prospera-card-strip[data-page="holidays"] .prospera-card-strip-label{font-size:9px;letter-spacing:0;text-transform:none}
+          .prospera-card-strip[data-page="holidays"]{gap:7px;padding:9px 10px;flex-direction:row;align-items:baseline;flex-wrap:wrap}
+          .prospera-card-strip[data-page="holidays"] ul{width:auto;max-width:100%}
+          .prospera-card-strip[data-page="home"] li::before,.prospera-card-strip[data-page="holidays"] li::before{content:'*';width:auto;height:auto;background:none;border-radius:0;flex:0 0 auto;color:#c38b00;font-weight:700;align-self:baseline}
+        }
+        @media(max-width:380px){
+          .prospera-card-strip[data-page="home"]{gap:6px;padding-inline:8px}
+          .prospera-card-strip[data-page="home"] ul{gap:7px}
+          .prospera-card-strip[data-page="holidays"] ul{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px 8px}
         }
       `}</style>
     </div>
